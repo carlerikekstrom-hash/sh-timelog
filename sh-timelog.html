@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0D1B2A">
+<title>SH Time Logger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #1E3A5F;
+    --navy-light: #2a4f7c;
+    --gold: #C9A84C;
+    --gold-bright: #FECC00;
+    --gold-dim: #8a6f2e;
+    --white: #F4F1EC;
+    --gray: #8899AA;
+    --gray-light: #ccd5de;
+    --red: #c0392b;
+    --green: #1a7a4a;
+    --bg: #060f18;
+    --card: #0f2236;
+    --card-border: #1e3a5f;
+    --input-bg: #0a1a28;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, #0a1a28 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 12px 16px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo-block { display: flex; align-items: baseline; gap: 8px; }
+  .logo-block .brand { font-family: var(--font-display); font-size: 22px; letter-spacing: 2px; color: var(--gold-bright); line-height: 1; }
+  .logo-block .sub { font-family: var(--font-cond); font-size: 11px; letter-spacing: 3px; color: var(--gray); text-transform: uppercase; }
+  .header-right { display: flex; gap: 8px; align-items: center; }
+
+  /* ── NAV TABS ── */
+  .tabs {
+    display: flex;
+    background: var(--navy);
+    border-bottom: 1px solid var(--card-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 8px;
+    text-align: center;
+    font-family: var(--font-cond);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab.active { color: var(--gold-bright); border-bottom-color: var(--gold-bright); }
+
+  /* ── VIEWS ── */
+  .view { display: none; padding: 16px; }
+  .view.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .card-title {
+    font-family: var(--font-cond);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── FORM ── */
+  .field { margin-bottom: 14px; }
+  label {
+    display: block;
+    font-family: var(--font-cond);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 5px;
+  }
+  input[type=text], input[type=number], input[type=datetime-local], textarea, select {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 5px;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--gold); }
+  select option { background: var(--navy); }
+  textarea { resize: vertical; min-height: 72px; }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Timer block */
+  .timer-block {
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .timer-display {
+    font-family: var(--font-display);
+    font-size: 48px;
+    letter-spacing: 4px;
+    color: var(--gold-bright);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .timer-display.running { color: #4ade80; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.7} }
+
+  .timer-btns { display: flex; gap: 10px; justify-content: center; }
+
+  /* Billable toggle */
+  .toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .toggle {
+    width: 46px; height: 26px;
+    background: var(--card-border);
+    border-radius: 13px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.25s;
+    flex-shrink: 0;
+  }
+  .toggle.on { background: var(--gold); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: 3px;
+    width: 20px; height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.25s;
+  }
+  .toggle.on::after { transform: translateX(20px); }
+  .toggle-label { font-size: 14px; color: var(--gray-light); }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-family: var(--font-cond);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-gold { background: var(--gold); color: var(--navy); }
+  .btn-gold:active { background: var(--gold-bright); }
+  .btn-navy { background: var(--navy-mid); color: var(--white); border: 1px solid var(--card-border); }
+  .btn-navy:active { background: var(--navy-light); }
+  .btn-green { background: var(--green); color: white; }
+  .btn-red { background: var(--red); color: white; }
+  .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--card-border); }
+  .btn-full { width: 100%; }
+  .btn-sm { padding: 7px 12px; font-size: 12px; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── LOG ENTRIES ── */
+  .entry-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .entry-card.billable { border-left: 3px solid var(--gold); }
+  .entry-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .entry-client { font-family: var(--font-cond); font-size: 16px; font-weight: 700; color: var(--white); }
+  .entry-hours { font-family: var(--font-display); font-size: 22px; color: var(--gold-bright); }
+  .entry-meta { font-size: 12px; color: var(--gray); margin-bottom: 4px; }
+  .entry-phase {
+    display: inline-block;
+    background: var(--navy-mid);
+    color: var(--gold);
+    font-family: var(--font-cond);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    margin-right: 6px;
+  }
+  .entry-notes { font-size: 13px; color: var(--gray-light); margin-top: 6px; font-style: italic; }
+  .entry-actions { display: flex; gap: 6px; margin-top: 10px; }
+  .drive-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    font-size: 11px;
+    font-family: var(--font-cond);
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+  }
+
+  /* ── STATS ── */
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .stat-box {
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 7px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .stat-val { font-family: var(--font-display); font-size: 30px; color: var(--gold-bright); line-height: 1; }
+  .stat-lbl { font-family: var(--font-cond); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-top: 4px; }
+
+  /* Job summary rows */
+  .job-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .job-row:last-child { border-bottom: none; }
+  .job-name { font-weight: 600; font-size: 14px; }
+  .job-client { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .job-hrs { font-family: var(--font-display); font-size: 20px; color: var(--gold); }
+  .job-earn { font-size: 12px; color: var(--gray); text-align: right; margin-top: 2px; }
+
+  /* ── FILTERS ── */
+  .filter-row { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; }
+  .filter-chip {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-family: var(--font-cond);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid var(--card-border);
+    color: var(--gray);
+    background: var(--card);
+    transition: all 0.2s;
+  }
+  .filter-chip.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+  /* Datelist header */
+  .date-header {
+    font-family: var(--font-cond);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin: 16px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  /* ── EXPORT ── */
+  .export-preview {
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--gray-light);
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+  }
+
+  /* ── MODALS ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px 16px 0 0;
+    padding: 20px 16px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+  }
+
+  /* ── MISC ── */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--gray);
+  }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-text { font-family: var(--font-cond); letter-spacing: 1px; font-size: 14px; }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--gold);
+    color: var(--navy);
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    z-index: 999;
+    transition: transform 0.3s;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .section-divider {
+    font-family: var(--font-cond);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin: 20px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--card-border); }
+
+  .rate-hint { font-size: 12px; color: var(--gold); margin-top: 4px; }
+
+  /* Progress bar */
+  .progress-bar {
+    height: 4px;
+    background: var(--card-border);
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  @media (min-width: 480px) {
+    .view { max-width: 600px; margin: 0 auto; }
+    .modal { max-width: 600px; border-radius: 16px; margin-bottom: 20px; }
+    .modal-overlay { align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <span class="brand">THE SWEDISH HAMMER</span>
+  </div>
+  <div class="header-right">
+    <div class="logo-block" style="flex-direction:column;align-items:flex-end;gap:2px">
+      <span style="font-family:var(--font-cond);font-size:11px;letter-spacing:2px;color:var(--gold)">TIME LOGGER</span>
+      <span id="headerDate" style="font-size:11px;color:var(--gray)"></span>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('log')">Log Time</div>
+  <div class="tab" onclick="switchTab('entries')">Entries</div>
+  <div class="tab" onclick="switchTab('jobs')">Jobs</div>
+  <div class="tab" onclick="switchTab('export')">Export</div>
+</div>
+
+<!-- ══════════════════════════════════
+     TAB 1: LOG TIME
+══════════════════════════════════ -->
+<div class="view active" id="view-log">
+
+  <!-- TIMER -->
+  <div class="card">
+    <div class="card-title">⏱ Live Timer</div>
+    <div class="timer-block">
+      <div class="timer-display" id="timerDisplay">00:00:00</div>
+      <div id="timerStatus" style="font-size:12px;color:var(--gray);margin-bottom:12px;font-family:var(--font-cond);letter-spacing:1px;">READY</div>
+      <div class="timer-btns">
+        <button class="btn btn-green" id="timerStartBtn" onclick="startTimer()">▶ START</button>
+        <button class="btn btn-red" id="timerStopBtn" onclick="stopTimer()" disabled>■ STOP</button>
+        <button class="btn btn-ghost btn-sm" onclick="resetTimer()">RESET</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOB INFO -->
+  <div class="card">
+    <div class="card-title">📋 Job Details</div>
+
+    <div class="field">
+      <label>Client Name</label>
+      <input type="text" id="client" placeholder="e.g. Laura Lambrecht" list="clientList" autocomplete="off">
+      <datalist id="clientList"></datalist>
+    </div>
+
+    <div class="field">
+      <label>Job / Project Name</label>
+      <input type="text" id="jobName" placeholder="e.g. 201 E Cleveland — Handrail" list="jobList" autocomplete="off">
+      <datalist id="jobList"></datalist>
+    </div>
+
+    <div class="field">
+      <label>Phase / Task</label>
+      <select id="phase">
+        <option value="">— Select Phase —</option>
+        <optgroup label="Site Prep">
+          <option>Demo / Tearout</option>
+          <option>Site Protection / Staging</option>
+          <option>Permit Walk</option>
+        </optgroup>
+        <optgroup label="Rough Work">
+          <option>Framing</option>
+          <option>Rough Plumbing</option>
+          <option>Rough Electrical</option>
+          <option>Blocking / Backing</option>
+        </optgroup>
+        <optgroup label="Finish">
+          <option>Drywall</option>
+          <option>Trim / Millwork</option>
+          <option>Paint / Stain</option>
+          <option>Flooring</option>
+          <option>Tile</option>
+          <option>Hardware / Fixtures</option>
+          <option>Doors / Windows</option>
+        </optgroup>
+        <optgroup label="Exterior">
+          <option>Deck / Fence</option>
+          <option>Roofing</option>
+          <option>Siding</option>
+          <option>Concrete / Masonry</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option>Assessment / Walkthrough</option>
+          <option>Material Run</option>
+          <option>Client Meeting</option>
+          <option>Cleanup</option>
+          <option>Punch List</option>
+          <option>Admin / Estimating</option>
+          <option>Custom…</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div id="customPhaseWrap" style="display:none" class="field">
+      <label>Custom Phase</label>
+      <input type="text" id="customPhase" placeholder="Describe the task">
+    </div>
+  </div>
+
+  <!-- TIME & BILLING -->
+  <div class="card">
+    <div class="card-title">🕐 Time & Billing</div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Start Time</label>
+        <input type="datetime-local" id="startTime">
+      </div>
+      <div class="field">
+        <label>End Time</label>
+        <input type="datetime-local" id="endTime">
+      </div>
+    </div>
+
+    <div style="background:var(--input-bg);border:1px solid var(--card-border);border-radius:6px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:var(--font-cond);font-size:12px;letter-spacing:1px;color:var(--gray)">CALCULATED HOURS</span>
+      <span id="calcHours" style="font-family:var(--font-display);font-size:26px;color:var(--gold-bright)">—</span>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label>Drive Time (min)</label>
+        <input type="number" id="driveTime" placeholder="0" min="0" max="480" value="0">
+      </div>
+      <div class="field">
+        <label>Hourly Rate ($)</label>
+        <input type="number" id="rate" placeholder="110" value="110" min="0">
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle on" id="billableToggle" onclick="toggleBillable()"></div>
+      <span class="toggle-label">Billable hours</span>
+    </div>
+
+    <div id="rateCalc" class="rate-hint"></div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card">
+    <div class="card-title">📝 Notes</div>
+    <div class="field">
+      <textarea id="notes" placeholder="What was done? Issues encountered? Materials used? Next steps?"></textarea>
+    </div>
+    <div class="field">
+      <label>Crew / Sub on Site</label>
+      <input type="text" id="crew" placeholder="Solo, or name subs present">
+    </div>
+    <div class="field">
+      <label>Weather / Conditions</label>
+      <input type="text" id="weather" placeholder="e.g. Hot, sunny — no issues" id="weather">
+    </div>
+  </div>
+
+  <button class="btn btn-gold btn-full" style="font-size:16px;padding:14px;" onclick="saveEntry()">
+    ✔ SAVE ENTRY
+  </button>
+  <div style="height:24px;"></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     TAB 2: ENTRIES
+══════════════════════════════════ -->
+<div class="view" id="view-entries">
+  <div class="filter-row" id="entryFilters">
+    <div class="filter-chip active" onclick="setFilter('all',this)">All</div>
+    <div class="filter-chip" onclick="setFilter('today',this)">Today</div>
+    <div class="filter-chip" onclick="setFilter('week',this)">This Week</div>
+    <div class="filter-chip" onclick="setFilter('month',this)">This Month</div>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-bottom:14px;">
+    <input type="text" id="searchEntries" placeholder="Search client, job, phase…" oninput="renderEntries()" style="flex:1">
+  </div>
+
+  <div id="entriesList"></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     TAB 3: JOBS DASHBOARD
+══════════════════════════════════ -->
+<div class="view" id="view-jobs">
+  <div class="stat-grid" id="overallStats"></div>
+  <div id="jobsList"></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     TAB 4: EXPORT
+══════════════════════════════════ -->
+<div class="view" id="view-export">
+  <div class="card">
+    <div class="card-title">📤 Export for Invoice</div>
+    <div class="field">
+      <label>Filter by Client</label>
+      <select id="exportClient" onchange="generateExport()">
+        <option value="">All Clients</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Filter by Job</label>
+      <select id="exportJob" onchange="generateExport()">
+        <option value="">All Jobs</option>
+      </select>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>From Date</label>
+        <input type="date" id="exportFrom" onchange="generateExport()">
+      </div>
+      <div class="field">
+        <label>To Date</label>
+        <input type="date" id="exportTo" onchange="generateExport()">
+      </div>
+    </div>
+    <div id="exportSummaryLine" style="font-family:var(--font-cond);font-size:13px;color:var(--gold);margin-bottom:10px;letter-spacing:1px;"></div>
+    <div class="export-preview" id="exportPreview">Select filters above to generate invoice line items…</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-gold" onclick="copyExport()">📋 Copy Text</button>
+      <button class="btn btn-navy" onclick="exportCSV()">⬇ Download CSV</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💾 Data Management</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-navy btn-sm" onclick="exportAllCSV()">Export All → CSV</button>
+      <button class="btn btn-ghost btn-sm" onclick="importCSV()">Import CSV</button>
+      <button class="btn btn-red btn-sm" onclick="clearAllData()">Clear All Data</button>
+    </div>
+    <input type="file" id="importFile" accept=".csv" style="display:none" onchange="handleImport(event)">
+    <div style="margin-top:12px;font-size:12px;color:var(--gray);">
+      All data stored locally on this device. No cloud sync.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     EDIT MODAL
+══════════════════════════════════ -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-title">EDIT ENTRY</div>
+    <div class="field"><label>Client</label><input type="text" id="edit_client"></div>
+    <div class="field"><label>Job Name</label><input type="text" id="edit_jobName"></div>
+    <div class="field"><label>Phase</label><input type="text" id="edit_phase"></div>
+    <div class="row2">
+      <div class="field"><label>Start</label><input type="datetime-local" id="edit_startTime"></div>
+      <div class="field"><label>End</label><input type="datetime-local" id="edit_endTime"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Drive (min)</label><input type="number" id="edit_driveTime"></div>
+      <div class="field"><label>Rate ($)</label><input type="number" id="edit_rate"></div>
+    </div>
+    <div class="field"><label>Notes</label><textarea id="edit_notes"></textarea></div>
+    <div class="field"><label>Crew</label><input type="text" id="edit_crew"></div>
+    <div class="toggle-row">
+      <div class="toggle" id="edit_billableToggle" onclick="toggleEditBillable()"></div>
+      <span class="toggle-label">Billable</span>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:10px;">
+      <button class="btn btn-gold" style="flex:1" onclick="saveEdit()">SAVE</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('editModal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+// ════════════════════════════════════
+// DB
+// ════════════════════════════════════
+const DB_NAME = 'SHTimelog', DB_VERSION = 1, STORE = 'entries';
+let db;
+
+function openDB() {
+  return new Promise((res, rej) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains(STORE)) {
+        const s = d.createObjectStore(STORE, { keyPath: 'id' });
+        s.createIndex('client', 'client', { unique: false });
+        s.createIndex('jobName', 'jobName', { unique: false });
+        s.createIndex('startTime', 'startTime', { unique: false });
+      }
+    };
+    req.onsuccess = e => { db = e.target.result; res(db); };
+    req.onerror = () => rej(req.error);
+  });
+}
+
+function dbAll() {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(STORE, 'readonly');
+    const req = tx.objectStore(STORE).getAll();
+    req.onsuccess = () => res(req.result || []);
+    req.onerror = () => rej(req.error);
+  });
+}
+function dbPut(entry) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(STORE, 'readwrite');
+    const req = tx.objectStore(STORE).put(entry);
+    req.onsuccess = () => res(req.result);
+    req.onerror = () => rej(req.error);
+  });
+}
+function dbDelete(id) {
+  return new Promise((res, rej) => {
+    const tx = db.transaction(STORE, 'readwrite');
+    const req = tx.objectStore(STORE).delete(id);
+    req.onsuccess = () => res();
+    req.onerror = () => rej(req.error);
+  });
+}
+
+// ════════════════════════════════════
+// TIMER
+// ════════════════════════════════════
+let timerInterval = null, timerStart = null, timerElapsed = 0;
+
+function fmtTimer(ms) {
+  const s = Math.floor(ms/1000), h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sc = s%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sc).padStart(2,'0')}`;
+}
+
+function startTimer() {
+  if (timerInterval) return;
+  timerStart = Date.now() - timerElapsed;
+  // auto-set start time field
+  const now = new Date(timerStart + timerElapsed);
+  if (!document.getElementById('startTime').value) {
+    document.getElementById('startTime').value = toLocalISO(now);
+  }
+  timerInterval = setInterval(() => {
+    timerElapsed = Date.now() - timerStart;
+    document.getElementById('timerDisplay').textContent = fmtTimer(timerElapsed);
+    document.getElementById('timerDisplay').className = 'timer-display running';
+    document.getElementById('timerStatus').textContent = 'RUNNING';
+    updateCalcHours();
+  }, 1000);
+  document.getElementById('timerStartBtn').disabled = true;
+  document.getElementById('timerStopBtn').disabled = false;
+}
+
+function stopTimer() {
+  if (!timerInterval) return;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  const now = new Date();
+  document.getElementById('endTime').value = toLocalISO(now);
+  document.getElementById('timerDisplay').className = 'timer-display';
+  document.getElementById('timerStatus').textContent = 'STOPPED — ' + fmtTimer(timerElapsed);
+  document.getElementById('timerStartBtn').disabled = false;
+  document.getElementById('timerStopBtn').disabled = true;
+  updateCalcHours();
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null; timerStart = null; timerElapsed = 0;
+  document.getElementById('timerDisplay').textContent = '00:00:00';
+  document.getElementById('timerDisplay').className = 'timer-display';
+  document.getElementById('timerStatus').textContent = 'READY';
+  document.getElementById('timerStartBtn').disabled = false;
+  document.getElementById('timerStopBtn').disabled = true;
+}
+
+function toLocalISO(d) {
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+// ════════════════════════════════════
+// FORM LOGIC
+// ════════════════════════════════════
+let isBillable = true;
+let editBillable = true;
+let editingId = null;
+let currentFilter = 'all';
+
+document.getElementById('phase').addEventListener('change', function() {
+  document.getElementById('customPhaseWrap').style.display = this.value === 'Custom…' ? 'block' : 'none';
+});
+document.getElementById('startTime').addEventListener('change', updateCalcHours);
+document.getElementById('endTime').addEventListener('change', updateCalcHours);
+document.getElementById('rate').addEventListener('input', updateCalcHours);
+
+function updateCalcHours() {
+  const s = document.getElementById('startTime').value;
+  const e = document.getElementById('endTime').value;
+  const rate = parseFloat(document.getElementById('rate').value) || 110;
+  if (s && e) {
+    const diff = (new Date(e) - new Date(s)) / 3600000;
+    if (diff > 0) {
+      document.getElementById('calcHours').textContent = diff.toFixed(2) + 'h';
+      document.getElementById('rateCalc').textContent = isBillable ? `$${(diff * rate).toFixed(2)} billable` : 'Non-billable';
+    } else {
+      document.getElementById('calcHours').textContent = '—';
+      document.getElementById('rateCalc').textContent = '';
+    }
+  } else if (timerInterval) {
+    document.getElementById('calcHours').textContent = fmtTimer(timerElapsed).slice(0,5);
+  }
+}
+
+function toggleBillable() {
+  isBillable = !isBillable;
+  document.getElementById('billableToggle').className = 'toggle' + (isBillable ? ' on' : '');
+  updateCalcHours();
+}
+function toggleEditBillable() {
+  editBillable = !editBillable;
+  document.getElementById('edit_billableToggle').className = 'toggle' + (editBillable ? ' on' : '');
+}
+
+function getPhase() {
+  const p = document.getElementById('phase').value;
+  return p === 'Custom…' ? document.getElementById('customPhase').value : p;
+}
+
+async function saveEntry() {
+  const client = document.getElementById('client').value.trim();
+  const jobName = document.getElementById('jobName').value.trim();
+  const phase = getPhase();
+  const startTime = document.getElementById('startTime').value;
+  const endTime = document.getElementById('endTime').value;
+
+  if (!client) { showToast('Enter a client name'); return; }
+  if (!jobName) { showToast('Enter a job name'); return; }
+  if (!startTime) { showToast('Set a start time'); return; }
+
+  let hours = 0;
+  if (startTime && endTime) {
+    hours = (new Date(endTime) - new Date(startTime)) / 3600000;
+    if (hours < 0) { showToast('End time before start time'); return; }
+  } else if (timerElapsed > 0) {
+    hours = timerElapsed / 3600000;
+  }
+
+  const entry = {
+    id: Date.now().toString(),
+    client, jobName, phase,
+    startTime, endTime,
+    hours: Math.round(hours * 100) / 100,
+    driveTime: parseInt(document.getElementById('driveTime').value) || 0,
+    rate: parseFloat(document.getElementById('rate').value) || 110,
+    billable: isBillable,
+    notes: document.getElementById('notes').value.trim(),
+    crew: document.getElementById('crew').value.trim(),
+    weather: document.getElementById('weather').value.trim(),
+    created: new Date().toISOString()
+  };
+
+  await dbPut(entry);
+  showToast('Entry saved ✔');
+  resetForm();
+  resetTimer();
+  refreshAutocompleteLists();
+}
+
+function resetForm() {
+  ['client','jobName','notes','crew','weather','customPhase'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('phase').value = '';
+  document.getElementById('customPhaseWrap').style.display = 'none';
+  document.getElementById('startTime').value = '';
+  document.getElementById('endTime').value = '';
+  document.getElementById('driveTime').value = '0';
+  document.getElementById('rate').value = '110';
+  isBillable = true;
+  document.getElementById('billableToggle').className = 'toggle on';
+  document.getElementById('calcHours').textContent = '—';
+  document.getElementById('rateCalc').textContent = '';
+}
+
+// ════════════════════════════════════
+// AUTOCOMPLETE
+// ════════════════════════════════════
+async function refreshAutocompleteLists() {
+  const entries = await dbAll();
+  const clients = [...new Set(entries.map(e => e.client).filter(Boolean))];
+  const jobs = [...new Set(entries.map(e => e.jobName).filter(Boolean))];
+  document.getElementById('clientList').innerHTML = clients.map(c => `<option value="${c}">`).join('');
+  document.getElementById('jobList').innerHTML = jobs.map(j => `<option value="${j}">`).join('');
+}
+
+// ════════════════════════════════════
+// RENDER ENTRIES
+// ════════════════════════════════════
+function fmtDate(dtStr) {
+  if (!dtStr) return '—';
+  const d = new Date(dtStr);
+  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+}
+function fmtTime(dtStr) {
+  if (!dtStr) return '—';
+  return new Date(dtStr).toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
+}
+function fmtMoney(n) { return '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+function getFilteredEntries(entries) {
+  const now = new Date();
+  const todayStr = now.toDateString();
+  let filtered = entries;
+
+  if (currentFilter === 'today') {
+    filtered = entries.filter(e => e.startTime && new Date(e.startTime).toDateString() === todayStr);
+  } else if (currentFilter === 'week') {
+    const weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
+    filtered = entries.filter(e => e.startTime && new Date(e.startTime) >= weekAgo);
+  } else if (currentFilter === 'month') {
+    filtered = entries.filter(e => e.startTime && new Date(e.startTime).getMonth() === now.getMonth() && new Date(e.startTime).getFullYear() === now.getFullYear());
+  }
+
+  const search = document.getElementById('searchEntries')?.value?.toLowerCase() || '';
+  if (search) {
+    filtered = filtered.filter(e =>
+      (e.client||'').toLowerCase().includes(search) ||
+      (e.jobName||'').toLowerCase().includes(search) ||
+      (e.phase||'').toLowerCase().includes(search) ||
+      (e.notes||'').toLowerCase().includes(search)
+    );
+  }
+
+  return filtered.sort((a,b) => new Date(b.startTime||b.created) - new Date(a.startTime||a.created));
+}
+
+async function renderEntries() {
+  const all = await dbAll();
+  const entries = getFilteredEntries(all);
+  const container = document.getElementById('entriesList');
+
+  if (!entries.length) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">🔨</div><div class="empty-text">No entries found</div></div>`;
+    return;
+  }
+
+  // Group by date
+  const groups = {};
+  entries.forEach(e => {
+    const dk = e.startTime ? fmtDate(e.startTime) : 'No Date';
+    if (!groups[dk]) groups[dk] = [];
+    groups[dk].push(e);
+  });
+
+  container.innerHTML = Object.entries(groups).map(([date, grp]) => {
+    const dayHrs = grp.reduce((a,e) => a + (e.hours||0), 0);
+    const dayEarn = grp.filter(e=>e.billable).reduce((a,e) => a + (e.hours||0)*(e.rate||110), 0);
+    return `<div class="date-header">${date} &nbsp;·&nbsp; ${dayHrs.toFixed(2)}h &nbsp;·&nbsp; ${fmtMoney(dayEarn)}</div>
+    ${grp.map(entryHTML).join('')}`;
+  }).join('');
+}
+
+function entryHTML(e) {
+  const earn = e.billable ? fmtMoney((e.hours||0)*(e.rate||110)) : 'Non-billable';
+  const driveStr = e.driveTime > 0 ? `<span class="drive-badge">🚗 ${e.driveTime}min drive</span>` : '';
+  return `<div class="entry-card ${e.billable?'billable':''}">
+    <div class="entry-header">
+      <div>
+        <div class="entry-client">${e.client}</div>
+        <div class="entry-meta">${e.jobName}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="entry-hours">${(e.hours||0).toFixed(2)}h</div>
+        <div style="font-size:12px;color:var(--gold-dim)">${earn}</div>
+      </div>
+    </div>
+    <div>
+      ${e.phase ? `<span class="entry-phase">${e.phase}</span>` : ''}
+      ${driveStr}
+      <span style="font-size:12px;color:var(--gray)">${fmtTime(e.startTime)} → ${fmtTime(e.endTime)}</span>
+    </div>
+    ${e.notes ? `<div class="entry-notes">${e.notes}</div>` : ''}
+    ${e.crew ? `<div style="font-size:12px;color:var(--gray);margin-top:4px">👷 ${e.crew}</div>` : ''}
+    <div class="entry-actions">
+      <button class="btn btn-navy btn-sm" onclick="editEntry('${e.id}')">Edit</button>
+      <button class="btn btn-ghost btn-sm" onclick="deleteEntry('${e.id}')">Delete</button>
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════
+// JOBS DASHBOARD
+// ════════════════════════════════════
+async function renderJobs() {
+  const entries = await dbAll();
+  const totalHrs = entries.reduce((a,e) => a + (e.hours||0), 0);
+  const totalEarn = entries.filter(e=>e.billable).reduce((a,e) => a + (e.hours||0)*(e.rate||110), 0);
+  const totalDrive = entries.reduce((a,e) => a + (e.driveTime||0), 0);
+  const jobCount = new Set(entries.map(e => e.jobName)).size;
+
+  document.getElementById('overallStats').innerHTML = `
+    <div class="stat-box"><div class="stat-val">${totalHrs.toFixed(1)}</div><div class="stat-lbl">Total Hours</div></div>
+    <div class="stat-box"><div class="stat-val">${fmtMoney(totalEarn)}</div><div class="stat-lbl">Billable Earned</div></div>
+    <div class="stat-box"><div class="stat-val">${jobCount}</div><div class="stat-lbl">Active Jobs</div></div>
+    <div class="stat-box"><div class="stat-val">${(totalDrive/60).toFixed(1)}h</div><div class="stat-lbl">Drive Time</div></div>`;
+
+  // Group by job
+  const jobs = {};
+  entries.forEach(e => {
+    const k = `${e.jobName}||${e.client}`;
+    if (!jobs[k]) jobs[k] = { jobName: e.jobName, client: e.client, hours: 0, earn: 0, entries: [] };
+    jobs[k].hours += e.hours || 0;
+    if (e.billable) jobs[k].earn += (e.hours||0) * (e.rate||110);
+    jobs[k].entries.push(e);
+  });
+
+  const sorted = Object.values(jobs).sort((a,b) => b.hours - a.hours);
+  const maxHrs = sorted[0]?.hours || 1;
+
+  document.getElementById('jobsList').innerHTML = sorted.length ? `
+    <div class="card">
+      <div class="card-title">📊 By Job</div>
+      ${sorted.map(j => `
+        <div class="job-row">
+          <div>
+            <div class="job-name">${j.jobName}</div>
+            <div class="job-client">${j.client}</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,(j.hours/maxHrs)*100).toFixed(0)}%"></div></div>
+          </div>
+          <div style="text-align:right;min-width:70px">
+            <div class="job-hrs">${j.hours.toFixed(1)}h</div>
+            <div class="job-earn">${fmtMoney(j.earn)}</div>
+          </div>
+        </div>`).join('')}
+    </div>` : '<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-text">No data yet</div></div>';
+}
+
+// ════════════════════════════════════
+// EXPORT
+// ════════════════════════════════════
+async function populateExportFilters() {
+  const entries = await dbAll();
+  const clients = [...new Set(entries.map(e=>e.client).filter(Boolean))];
+  const jobs = [...new Set(entries.map(e=>e.jobName).filter(Boolean))];
+  document.getElementById('exportClient').innerHTML = '<option value="">All Clients</option>' + clients.map(c=>`<option>${c}</option>`).join('');
+  document.getElementById('exportJob').innerHTML = '<option value="">All Jobs</option>' + jobs.map(j=>`<option>${j}</option>`).join('');
+}
+
+async function generateExport() {
+  const entries = await dbAll();
+  const client = document.getElementById('exportClient').value;
+  const job = document.getElementById('exportJob').value;
+  const from = document.getElementById('exportFrom').value;
+  const to = document.getElementById('exportTo').value;
+
+  let filtered = entries;
+  if (client) filtered = filtered.filter(e=>e.client===client);
+  if (job) filtered = filtered.filter(e=>e.jobName===job);
+  if (from) filtered = filtered.filter(e=>e.startTime && e.startTime >= from);
+  if (to) filtered = filtered.filter(e=>e.startTime && e.startTime <= to+'T23:59');
+
+  filtered = filtered.sort((a,b)=>new Date(a.startTime||a.created)-new Date(b.startTime||b.created));
+
+  if (!filtered.length) {
+    document.getElementById('exportPreview').textContent = 'No entries match the selected filters.';
+    document.getElementById('exportSummaryLine').textContent = '';
+    return;
+  }
+
+  const totalHrs = filtered.reduce((a,e)=>a+(e.hours||0),0);
+  const billHrs = filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0),0);
+  const totalEarn = filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
+
+  document.getElementById('exportSummaryLine').textContent =
+    `${filtered.length} entries · ${totalHrs.toFixed(2)}h total · ${billHrs.toFixed(2)}h billable · ${fmtMoney(totalEarn)}`;
+
+  const lines = filtered.map(e => {
+    const d = e.startTime ? fmtDate(e.startTime) : 'No Date';
+    const earn = e.billable ? fmtMoney((e.hours||0)*(e.rate||110)) : 'Non-billable';
+    return `${d} | ${e.phase||'—'} | ${(e.hours||0).toFixed(2)}h @ $${e.rate||110}/hr = ${earn}${e.notes?'\n  Notes: '+e.notes:''}`;
+  });
+
+  lines.push('');
+  lines.push(`TOTAL: ${billHrs.toFixed(2)} billable hrs · ${fmtMoney(totalEarn)}`);
+  if (totalHrs > billHrs) lines.push(`(${(totalHrs-billHrs).toFixed(2)} non-billable hrs not included)`);
+
+  document.getElementById('exportPreview').textContent = lines.join('\n');
+}
+
+function copyExport() {
+  const text = document.getElementById('exportPreview').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
+}
+
+async function exportCSV() {
+  const entries = await dbAll();
+  const client = document.getElementById('exportClient').value;
+  const job = document.getElementById('exportJob').value;
+  let filtered = entries;
+  if (client) filtered = filtered.filter(e=>e.client===client);
+  if (job) filtered = filtered.filter(e=>e.jobName===job);
+  downloadCSV(filtered, 'sh-timelog-export.csv');
+}
+
+async function exportAllCSV() {
+  const entries = await dbAll();
+  downloadCSV(entries, 'sh-timelog-all.csv');
+}
+
+function downloadCSV(entries, filename) {
+  const headers = ['Date','Client','Job','Phase','Hours','Rate','Billable','Earn','DriveMin','Crew','Weather','Notes'];
+  const rows = entries.map(e => [
+    e.startTime ? fmtDate(e.startTime) : '',
+    e.client, e.jobName, e.phase, (e.hours||0).toFixed(2),
+    e.rate||110, e.billable?'Yes':'No',
+    e.billable?((e.hours||0)*(e.rate||110)).toFixed(2):'0',
+    e.driveTime||0, e.crew||'', e.weather||'', (e.notes||'').replace(/\n/g,' ')
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(v=>`"${v}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  showToast('CSV downloaded');
+}
+
+function importCSV() { document.getElementById('importFile').click(); }
+function handleImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async ev => {
+    const lines = ev.target.result.split('\n').slice(1);
+    let count = 0;
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      const cols = line.match(/(".*?"|[^,]+)(?=,|$)/g)?.map(c=>c.replace(/^"|"$/g,'').trim()) || [];
+      if (cols.length < 7) continue;
+      await dbPut({
+        id: Date.now().toString() + Math.random(),
+        startTime: '', endTime: '',
+        client: cols[1], jobName: cols[2], phase: cols[3],
+        hours: parseFloat(cols[4])||0, rate: parseFloat(cols[5])||110,
+        billable: cols[6]==='Yes', driveTime: parseInt(cols[8])||0,
+        crew: cols[9]||'', weather: cols[10]||'', notes: cols[11]||'',
+        created: new Date().toISOString()
+      });
+      count++;
+    }
+    showToast(`Imported ${count} entries`);
+    refreshAutocompleteLists();
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+async function clearAllData() {
+  if (!confirm('Delete ALL time log entries? This cannot be undone.')) return;
+  const entries = await dbAll();
+  for (const e of entries) await dbDelete(e.id);
+  showToast('All data cleared');
+  renderEntries(); renderJobs();
+}
+
+// ════════════════════════════════════
+// EDIT / DELETE
+// ════════════════════════════════════
+async function editEntry(id) {
+  const entries = await dbAll();
+  const e = entries.find(x=>x.id===id);
+  if (!e) return;
+  editingId = id;
+  editBillable = e.billable;
+  document.getElementById('edit_client').value = e.client||'';
+  document.getElementById('edit_jobName').value = e.jobName||'';
+  document.getElementById('edit_phase').value = e.phase||'';
+  document.getElementById('edit_startTime').value = e.startTime||'';
+  document.getElementById('edit_endTime').value = e.endTime||'';
+  document.getElementById('edit_driveTime').value = e.driveTime||0;
+  document.getElementById('edit_rate').value = e.rate||110;
+  document.getElementById('edit_notes').value = e.notes||'';
+  document.getElementById('edit_crew').value = e.crew||'';
+  document.getElementById('edit_billableToggle').className = 'toggle' + (editBillable?' on':'');
+  document.getElementById('editModal').classList.add('open');
+}
+
+async function saveEdit() {
+  const entries = await dbAll();
+  const e = entries.find(x=>x.id===editingId);
+  if (!e) return;
+  const s = document.getElementById('edit_startTime').value;
+  const en = document.getElementById('edit_endTime').value;
+  let hours = e.hours;
+  if (s && en) { const h = (new Date(en)-new Date(s))/3600000; if (h>0) hours=Math.round(h*100)/100; }
+  Object.assign(e, {
+    client: document.getElementById('edit_client').value,
+    jobName: document.getElementById('edit_jobName').value,
+    phase: document.getElementById('edit_phase').value,
+    startTime: s, endTime: en, hours,
+    driveTime: parseInt(document.getElementById('edit_driveTime').value)||0,
+    rate: parseFloat(document.getElementById('edit_rate').value)||110,
+    billable: editBillable,
+    notes: document.getElementById('edit_notes').value,
+    crew: document.getElementById('edit_crew').value
+  });
+  await dbPut(e);
+  closeModal('editModal');
+  showToast('Entry updated');
+  renderEntries(); renderJobs(); refreshAutocompleteLists();
+}
+
+async function deleteEntry(id) {
+  if (!confirm('Delete this entry?')) return;
+  await dbDelete(id);
+  showToast('Entry deleted');
+  renderEntries(); renderJobs();
+}
+
+// ════════════════════════════════════
+// TABS / FILTERS / UI
+// ════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const tabs = ['log','entries','jobs','export'];
+  document.querySelectorAll('.tab')[tabs.indexOf(tab)].classList.add('active');
+  document.getElementById('view-'+tab).classList.add('active');
+  if (tab==='entries') renderEntries();
+  if (tab==='jobs') renderJobs();
+  if (tab==='export') { populateExportFilters(); generateExport(); }
+}
+
+function setFilter(filter, el) {
+  currentFilter = filter;
+  document.querySelectorAll('#entryFilters .filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderEntries();
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ════════════════════════════════════
+// SERVICE WORKER
+// ════════════════════════════════════
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw-timelog.js')
+    .then(reg => console.log('SW registered:', reg.scope))
+    .catch(err => console.warn('SW registration failed:', err));
+}
+
+// ════════════════════════════════════
+// INIT
+// ════════════════════════════════════
+(async () => {
+  await openDB();
+  // Default start time to now
+  document.getElementById('startTime').value = toLocalISO(new Date());
+  // Header date
+  document.getElementById('headerDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  await refreshAutocompleteLists();
+})();
+</script>
+</body>
+</html>
