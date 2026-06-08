@@ -1,0 +1,2 @@
+# sh-timelog
+self evident
