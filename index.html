@@ -248,6 +248,10 @@
       <span style="font-family:var(--font-cond);font-size:12px;letter-spacing:1px;color:var(--gray)">CALCULATED HOURS</span>
       <span id="calcHours" style="font-family:var(--font-display);font-size:26px;color:var(--gold-bright)">—</span>
     </div>
+    <div class="field">
+      <label>Manual Hours Override <span style="color:var(--gold-dim);font-size:10px;letter-spacing:0">(use if not entering start/end times)</span></label>
+      <input type="number" id="manualHours" placeholder="e.g. 6.75" min="0" max="24" step="0.25" oninput="updateCalcHours()">
+    </div>
     <div class="row2">
       <div class="field"><label>Drive Time (min)</label><input type="number" id="driveTime" placeholder="0" min="0" max="480" value="0"></div>
       <div class="field"><label>Hourly Rate ($)</label><input type="number" id="rate" placeholder="110" value="110" min="0"></div>
@@ -530,8 +534,18 @@ document.getElementById('rate').addEventListener('input',updateCalcHours);
 
 function updateCalcHours(){
   const s=document.getElementById('startTime').value,e=document.getElementById('endTime').value;
+  const manual=parseFloat(document.getElementById('manualHours').value);
   const rate=parseFloat(document.getElementById('rate').value)||110;
-  if(s&&e){const diff=(new Date(e)-new Date(s))/3600000;if(diff>0){document.getElementById('calcHours').textContent=diff.toFixed(2)+'h';document.getElementById('rateCalc').textContent=isBillable?`$${(diff*rate).toFixed(2)} billable`:'Non-billable';}else{document.getElementById('calcHours').textContent='—';document.getElementById('rateCalc').textContent=''}}else if(timerInterval){document.getElementById('calcHours').textContent=fmtTimer(timerElapsed).slice(0,5)}
+  if(s&&e){
+    const diff=(new Date(e)-new Date(s))/3600000;
+    if(diff>0){document.getElementById('calcHours').textContent=diff.toFixed(2)+'h';document.getElementById('rateCalc').textContent=isBillable?`$${(diff*rate).toFixed(2)} billable`:'Non-billable';}
+    else{document.getElementById('calcHours').textContent='—';document.getElementById('rateCalc').textContent=''}
+  } else if(manual>0){
+    document.getElementById('calcHours').textContent=manual.toFixed(2)+'h';
+    document.getElementById('rateCalc').textContent=isBillable?`$${(manual*rate).toFixed(2)} billable`:'Non-billable';
+  } else if(timerInterval){
+    document.getElementById('calcHours').textContent=fmtTimer(timerElapsed).slice(0,5)
+  }
 }
 function toggleBillable(){isBillable=!isBillable;document.getElementById('billableToggle').className='toggle'+(isBillable?' on':'');updateCalcHours()}
 function toggleEditBillable(){editBillable=!editBillable;document.getElementById('edit_billableToggle').className='toggle'+(editBillable?' on':'')}
@@ -543,12 +557,19 @@ async function saveEntry(){
   const jobName=document.getElementById('jobName').value.trim();
   const startTime=document.getElementById('startTime').value;
   const endTime=document.getElementById('endTime').value;
+  const manualHours=parseFloat(document.getElementById('manualHours').value)||0;
   if(!client){showToast('Enter a client name');return}
   if(!jobName){showToast('Enter a job name');return}
-  if(!startTime){showToast('Set a start time');return}
+  if(!startTime&&!manualHours){showToast('Set a start time or enter hours manually');return}
   let hours=0;
-  if(startTime&&endTime){hours=(new Date(endTime)-new Date(startTime))/3600000;if(hours<0){showToast('End time before start time');return}}
-  else if(timerElapsed>0){hours=timerElapsed/3600000}
+  if(startTime&&endTime){
+    hours=(new Date(endTime)-new Date(startTime))/3600000;
+    if(hours<0){showToast('End time before start time');return}
+  } else if(manualHours>0){
+    hours=manualHours;
+  } else if(timerElapsed>0){
+    hours=timerElapsed/3600000;
+  }
   const entry={
     id:Date.now().toString(),client,jobName,
     tasks:[...selectedTasks],startTime,endTime,
@@ -568,7 +589,7 @@ async function saveEntry(){
 }
 
 function resetForm(){
-  ['client','jobName','notes','crew','weather'].forEach(id=>document.getElementById(id).value='');
+  ['client','jobName','notes','crew','weather','manualHours'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('startTime').value='';document.getElementById('endTime').value='';
   document.getElementById('driveTime').value='0';document.getElementById('rate').value='110';
   selectedTasks=[];pendingPhotos=[];renderTaskUI();renderPhotoStrip();
