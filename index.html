@@ -11,448 +11,154 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0D1B2A;
-    --navy-mid: #1E3A5F;
-    --navy-light: #2a4f7c;
-    --gold: #C9A84C;
-    --gold-bright: #FECC00;
-    --gold-dim: #8a6f2e;
-    --white: #F4F1EC;
-    --gray: #8899AA;
-    --gray-light: #ccd5de;
-    --red: #c0392b;
-    --green: #1a7a4a;
-    --bg: #060f18;
-    --card: #0f2236;
-    --card-border: #1e3a5f;
-    --input-bg: #0a1a28;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'Barlow', sans-serif;
-    --font-cond: 'Barlow Condensed', sans-serif;
+    --navy:#0D1B2A;--navy-mid:#1E3A5F;--navy-light:#2a4f7c;
+    --gold:#C9A84C;--gold-bright:#FECC00;--gold-dim:#8a6f2e;
+    --white:#F4F1EC;--gray:#8899AA;--gray-light:#ccd5de;
+    --red:#c0392b;--green:#1a7a4a;--orange:#c07a1a;
+    --bg:#060f18;--card:#0f2236;--card-border:#1e3a5f;--input-bg:#0a1a28;
+    --font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;--font-cond:'Barlow Condensed',sans-serif;
   }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{background:var(--bg);color:var(--white);font-family:var(--font-body);font-size:15px;min-height:100vh;overscroll-behavior:none}
+  header{background:linear-gradient(135deg,var(--navy) 0%,#0a1a28 100%);border-bottom:2px solid var(--gold);padding:12px 16px 10px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:var(--font-display);font-size:22px;letter-spacing:2px;color:var(--gold-bright);line-height:1}
+  .tabs{display:flex;background:var(--navy);border-bottom:1px solid var(--card-border);overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:1;min-width:72px;padding:10px 6px;text-align:center;font-family:var(--font-cond);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+  .tab.active{color:var(--gold-bright);border-bottom-color:var(--gold-bright)}
+  .view{display:none;padding:16px}.view.active{display:block}
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:8px;padding:16px;margin-bottom:14px}
+  .card-title{font-family:var(--font-cond);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .field{margin-bottom:14px}
+  label{display:block;font-family:var(--font-cond);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:5px}
+  input[type=text],input[type=number],input[type=datetime-local],input[type=date],textarea,select{width:100%;background:var(--input-bg);border:1px solid var(--card-border);border-radius:5px;color:var(--white);font-family:var(--font-body);font-size:15px;padding:10px 12px;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none}
+  input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+  select option{background:var(--navy)}
+  textarea{resize:vertical;min-height:72px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  /* JOB BANNER */
+  .job-banner{background:rgba(201,168,76,0.1);border:1px solid var(--gold-dim);border-radius:6px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .job-banner-label{font-family:var(--font-cond);font-size:11px;letter-spacing:1px;color:var(--gold)}
+  .job-banner-vals{display:flex;gap:16px;align-items:center}
+  .job-banner-stat{text-align:right}
+  .job-banner-num{font-family:var(--font-display);font-size:20px;color:var(--gold-bright);line-height:1}
+  .job-banner-sub{font-size:10px;color:var(--gray);font-family:var(--font-cond);letter-spacing:1px}
+  .budget-bar-wrap{margin-top:4px;height:4px;background:var(--card-border);border-radius:2px;overflow:hidden;width:80px}
+  .budget-bar-fill{height:100%;border-radius:2px;transition:width .4s}
 
-  body {
-    background: var(--bg);
-    color: var(--white);
-    font-family: var(--font-body);
-    font-size: 15px;
-    min-height: 100vh;
-    overscroll-behavior: none;
-  }
+  /* TASK PICKER */
+  .task-picker{background:var(--input-bg);border:1px solid var(--card-border);border-radius:6px;padding:10px}
+  .task-picker:focus-within{border-color:var(--gold)}
+  .task-selected{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;min-height:10px}
+  .task-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,0.2);border:1px solid var(--gold-dim);color:var(--gold-bright);font-family:var(--font-cond);font-size:12px;font-weight:600;padding:4px 8px;border-radius:4px}
+  .task-tag .remove{cursor:pointer;color:var(--gold-dim);font-size:14px;line-height:1;padding:0 2px}
+  .task-tag .remove:hover{color:var(--red)}
+  .task-add-row{display:flex;gap:6px;align-items:center}
+  .task-add-row input{flex:1;background:transparent;border:none;border-bottom:1px solid var(--card-border);border-radius:0;padding:4px 0;font-size:14px;color:var(--white)}
+  .task-add-row input:focus{border-bottom-color:var(--gold);outline:none}
+  .task-presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--card-border)}
+  .task-preset{font-family:var(--font-cond);font-size:11px;font-weight:600;color:var(--gray);background:var(--card);border:1px solid var(--card-border);border-radius:4px;padding:4px 8px;cursor:pointer;transition:all .15s}
+  .task-preset:active{background:var(--navy-mid);color:var(--gold)}
+  .task-preset.used{opacity:.35;cursor:default}
 
-  header {
-    background: linear-gradient(135deg, var(--navy) 0%, #0a1a28 100%);
-    border-bottom: 2px solid var(--gold);
-    padding: 12px 16px 10px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .logo-block { display: flex; align-items: baseline; gap: 8px; }
-  .logo-block .brand { font-family: var(--font-display); font-size: 22px; letter-spacing: 2px; color: var(--gold-bright); line-height: 1; }
+  /* PHOTO */
+  .photo-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .photo-thumb{width:64px;height:64px;object-fit:cover;border-radius:5px;border:1px solid var(--card-border);cursor:pointer}
+  .photo-add-btn{width:64px;height:64px;border-radius:5px;border:2px dashed var(--card-border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:var(--gray);background:var(--input-bg);transition:border-color .2s}
+  .photo-add-btn:active{border-color:var(--gold)}
 
-  .tabs {
-    display: flex;
-    background: var(--navy);
-    border-bottom: 1px solid var(--card-border);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab {
-    flex: 1;
-    min-width: 80px;
-    padding: 10px 8px;
-    text-align: center;
-    font-family: var(--font-cond);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gray);
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .tab.active { color: var(--gold-bright); border-bottom-color: var(--gold-bright); }
+  /* TIMER */
+  .timer-block{background:var(--input-bg);border:1px solid var(--card-border);border-radius:8px;padding:14px;margin-bottom:14px;text-align:center}
+  .timer-display{font-family:var(--font-display);font-size:48px;letter-spacing:4px;color:var(--gold-bright);line-height:1;margin-bottom:10px}
+  .timer-display.running{color:#4ade80;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+  .timer-btns{display:flex;gap:10px;justify-content:center}
 
-  .view { display: none; padding: 16px; }
-  .view.active { display: block; }
+  /* TOGGLE */
+  .toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .toggle{width:46px;height:26px;background:var(--card-border);border-radius:13px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0}
+  .toggle.on{background:var(--gold)}
+  .toggle::after{content:'';position:absolute;left:3px;top:3px;width:20px;height:20px;background:white;border-radius:50%;transition:transform .25s}
+  .toggle.on::after{transform:translateX(20px)}
+  .toggle-label{font-size:14px;color:var(--gray-light)}
 
-  .card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 14px;
-  }
-  .card-title {
-    font-family: var(--font-cond);
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:6px;font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all .2s}
+  .btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:active{background:var(--gold-bright)}
+  .btn-navy{background:var(--navy-mid);color:var(--white);border:1px solid var(--card-border)}
+  .btn-green{background:var(--green);color:white}
+  .btn-red{background:var(--red);color:white}
+  .btn-ghost{background:transparent;color:var(--gray);border:1px solid var(--card-border)}
+  .btn-full{width:100%}.btn-sm{padding:7px 12px;font-size:12px}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
 
-  .field { margin-bottom: 14px; }
-  label {
-    display: block;
-    font-family: var(--font-cond);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 5px;
-  }
-  input[type=text], input[type=number], input[type=datetime-local], textarea, select {
-    width: 100%;
-    background: var(--input-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 5px;
-    color: var(--white);
-    font-family: var(--font-body);
-    font-size: 15px;
-    padding: 10px 12px;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-  input:focus, textarea:focus, select:focus { border-color: var(--gold); }
-  select option { background: var(--navy); }
-  textarea { resize: vertical; min-height: 72px; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  /* ENTRIES */
+  .entry-card{background:var(--card);border:1px solid var(--card-border);border-radius:8px;padding:14px;margin-bottom:10px}
+  .entry-card.billable{border-left:3px solid var(--gold)}
+  .entry-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+  .entry-client{font-family:var(--font-cond);font-size:16px;font-weight:700;color:var(--white)}
+  .entry-hours{font-family:var(--font-display);font-size:22px;color:var(--gold-bright)}
+  .entry-meta{font-size:12px;color:var(--gray);margin-bottom:4px}
+  .entry-tasks{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
+  .entry-task-badge{font-family:var(--font-cond);font-size:11px;font-weight:600;background:var(--navy-mid);color:var(--gold);padding:2px 8px;border-radius:3px}
+  .entry-notes{font-size:13px;color:var(--gray-light);margin-top:6px;font-style:italic}
+  .entry-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+  .drive-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(201,168,76,0.15);color:var(--gold);font-size:11px;font-family:var(--font-cond);padding:2px 7px;border-radius:3px}
 
-  /* ── TASK TAGS ── */
-  .task-picker {
-    background: var(--input-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 6px;
-    padding: 10px;
-  }
-  .task-picker:focus-within { border-color: var(--gold); }
-  .task-selected {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 8px;
-    min-height: 10px;
-  }
-  .task-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(201,168,76,0.2);
-    border: 1px solid var(--gold-dim);
-    color: var(--gold-bright);
-    font-family: var(--font-cond);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
-  .task-tag .remove {
-    cursor: pointer;
-    color: var(--gold-dim);
-    font-size: 14px;
-    line-height: 1;
-    padding: 0 2px;
-  }
-  .task-tag .remove:hover { color: var(--red); }
-  .task-add-row {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
-  .task-add-row input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--card-border);
-    border-radius: 0;
-    padding: 4px 0;
-    font-size: 14px;
-    color: var(--white);
-  }
-  .task-add-row input:focus { border-bottom-color: var(--gold); outline: none; }
-  .task-presets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid var(--card-border);
-  }
-  .task-preset {
-    font-family: var(--font-cond);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: var(--gray);
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .task-preset:active { background: var(--navy-mid); color: var(--gold); }
-  .task-preset.used { opacity: 0.35; cursor: default; }
+  /* STATS */
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .stat-box{background:var(--input-bg);border:1px solid var(--card-border);border-radius:7px;padding:14px 12px;text-align:center}
+  .stat-val{font-family:var(--font-display);font-size:30px;color:var(--gold-bright);line-height:1}
+  .stat-lbl{font-family:var(--font-cond);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-top:4px}
 
-  /* ── TIMER ── */
-  .timer-block {
-    background: var(--input-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 14px;
-    margin-bottom: 14px;
-    text-align: center;
-  }
-  .timer-display {
-    font-family: var(--font-display);
-    font-size: 48px;
-    letter-spacing: 4px;
-    color: var(--gold-bright);
-    line-height: 1;
-    margin-bottom: 10px;
-  }
-  .timer-display.running { color: #4ade80; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.7} }
-  .timer-btns { display: flex; gap: 10px; justify-content: center; }
+  /* JOB ROWS */
+  .job-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--card-border)}
+  .job-row:last-child{border-bottom:none}
+  .job-name{font-weight:600;font-size:14px}.job-client{font-size:12px;color:var(--gray);margin-top:2px}
+  .job-hrs{font-family:var(--font-display);font-size:20px;color:var(--gold)}
+  .job-earn{font-size:12px;color:var(--gray);text-align:right;margin-top:2px}
+  .progress-bar{height:5px;background:var(--card-border);border-radius:3px;margin-top:5px;overflow:hidden;position:relative}
+  .progress-fill{height:100%;border-radius:3px;transition:width .5s ease}
+  .progress-over{background:var(--red)!important}
 
-  .toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .toggle {
-    width: 46px; height: 26px;
-    background: var(--card-border);
-    border-radius: 13px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.25s;
-    flex-shrink: 0;
-  }
-  .toggle.on { background: var(--gold); }
-  .toggle::after {
-    content: '';
-    position: absolute;
-    left: 3px; top: 3px;
-    width: 20px; height: 20px;
-    background: white;
-    border-radius: 50%;
-    transition: transform 0.25s;
-  }
-  .toggle.on::after { transform: translateX(20px); }
-  .toggle-label { font-size: 14px; color: var(--gray-light); }
+  /* FILTERS */
+  .filter-row{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
+  .filter-chip{flex-shrink:0;padding:5px 12px;border-radius:20px;font-family:var(--font-cond);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid var(--card-border);color:var(--gray);background:var(--card);transition:all .2s}
+  .filter-chip.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+  .date-header{font-family:var(--font-cond);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--card-border)}
+  .export-preview{background:var(--input-bg);border:1px solid var(--card-border);border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:var(--gray-light);white-space:pre-wrap;max-height:200px;overflow-y:auto;margin-bottom:12px}
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 11px 18px;
-    border-radius: 6px;
-    font-family: var(--font-cond);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-  }
-  .btn-gold { background: var(--gold); color: var(--navy); }
-  .btn-gold:active { background: var(--gold-bright); }
-  .btn-navy { background: var(--navy-mid); color: var(--white); border: 1px solid var(--card-border); }
-  .btn-green { background: var(--green); color: white; }
-  .btn-red { background: var(--red); color: white; }
-  .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--card-border); }
-  .btn-full { width: 100%; }
-  .btn-sm { padding: 7px 12px; font-size: 12px; }
-  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  /* SIGNATURE */
+  .sig-canvas{width:100%;height:120px;background:white;border-radius:5px;border:1px solid var(--card-border);cursor:crosshair;touch-action:none}
 
-  .entry-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 14px;
-    margin-bottom: 10px;
-  }
-  .entry-card.billable { border-left: 3px solid var(--gold); }
-  .entry-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-  .entry-client { font-family: var(--font-cond); font-size: 16px; font-weight: 700; color: var(--white); }
-  .entry-hours { font-family: var(--font-display); font-size: 22px; color: var(--gold-bright); }
-  .entry-meta { font-size: 12px; color: var(--gray); margin-bottom: 4px; }
-  .entry-tasks {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin: 6px 0;
-  }
-  .entry-task-badge {
-    font-family: var(--font-cond);
-    font-size: 11px;
-    font-weight: 600;
-    background: var(--navy-mid);
-    color: var(--gold);
-    padding: 2px 8px;
-    border-radius: 3px;
-    letter-spacing: 0.5px;
-  }
-  .entry-notes { font-size: 13px; color: var(--gray-light); margin-top: 6px; font-style: italic; }
-  .entry-actions { display: flex; gap: 6px; margin-top: 10px; }
-  .drive-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: rgba(201,168,76,0.15);
-    color: var(--gold);
-    font-size: 11px;
-    font-family: var(--font-cond);
-    padding: 2px 7px;
-    border-radius: 3px;
-  }
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:flex-end;justify-content:center}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--card);border:1px solid var(--card-border);border-radius:16px 16px 0 0;padding:20px 16px;width:100%;max-height:92vh;overflow-y:auto}
+  .modal-title{font-family:var(--font-display);font-size:22px;letter-spacing:2px;color:var(--gold-bright);margin-bottom:16px}
 
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-  .stat-box {
-    background: var(--input-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 7px;
-    padding: 14px 12px;
-    text-align: center;
-  }
-  .stat-val { font-family: var(--font-display); font-size: 30px; color: var(--gold-bright); line-height: 1; }
-  .stat-lbl { font-family: var(--font-cond); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-top: 4px; }
+  /* PHOTO MODAL */
+  .photo-modal-img{width:100%;border-radius:8px;max-height:60vh;object-fit:contain}
 
-  .job-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 11px 0;
-    border-bottom: 1px solid var(--card-border);
-  }
-  .job-row:last-child { border-bottom: none; }
-  .job-name { font-weight: 600; font-size: 14px; }
-  .job-client { font-size: 12px; color: var(--gray); margin-top: 2px; }
-  .job-hrs { font-family: var(--font-display); font-size: 20px; color: var(--gold); }
-  .job-earn { font-size: 12px; color: var(--gray); text-align: right; margin-top: 2px; }
+  .empty-state{text-align:center;padding:40px 20px;color:var(--gray)}
+  .empty-icon{font-size:40px;margin-bottom:12px}
+  .empty-text{font-family:var(--font-cond);letter-spacing:1px;font-size:14px}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--gold);color:var(--navy);font-family:var(--font-cond);font-weight:700;font-size:14px;letter-spacing:1px;padding:10px 20px;border-radius:6px;z-index:999;transition:transform .3s;white-space:nowrap}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .rate-hint{font-size:12px;color:var(--gold);margin-top:4px}
 
-  .filter-row { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; }
-  .filter-chip {
-    flex-shrink: 0;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-family: var(--font-cond);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: 1px solid var(--card-border);
-    color: var(--gray);
-    background: var(--card);
-    transition: all 0.2s;
-  }
-  .filter-chip.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-
-  .date-header {
-    font-family: var(--font-cond);
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin: 16px 0 8px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--card-border);
-  }
-
-  .export-preview {
-    background: var(--input-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 6px;
-    padding: 12px;
-    font-family: monospace;
-    font-size: 12px;
-    color: var(--gray-light);
-    white-space: pre-wrap;
-    max-height: 200px;
-    overflow-y: auto;
-    margin-bottom: 12px;
-  }
-
-  .modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 200;
-    display: none;
-    align-items: flex-end;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 16px 16px 0 0;
-    padding: 20px 16px;
-    width: 100%;
-    max-height: 92vh;
-    overflow-y: auto;
-  }
-  .modal-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: var(--gold-bright);
-    margin-bottom: 16px;
-  }
-
-  .empty-state { text-align: center; padding: 40px 20px; color: var(--gray); }
-  .empty-icon { font-size: 40px; margin-bottom: 12px; }
-  .empty-text { font-family: var(--font-cond); letter-spacing: 1px; font-size: 14px; }
-
-  .toast {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--gold);
-    color: var(--navy);
-    font-family: var(--font-cond);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    padding: 10px 20px;
-    border-radius: 6px;
-    z-index: 999;
-    transition: transform 0.3s;
-    white-space: nowrap;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-
-  .rate-hint { font-size: 12px; color: var(--gold); margin-top: 4px; }
-
-  .progress-bar { height: 4px; background: var(--card-border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s ease; }
-
-  @media (min-width: 480px) {
-    .view { max-width: 600px; margin: 0 auto; }
-    .modal { max-width: 600px; border-radius: 16px; margin-bottom: 20px; }
-    .modal-overlay { align-items: center; }
+  @media(min-width:480px){
+    .view{max-width:600px;margin:0 auto}
+    .modal{max-width:600px;border-radius:16px;margin-bottom:20px}
+    .modal-overlay{align-items:center}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-block">
-    <span class="brand">THE SWEDISH HAMMER</span>
-  </div>
+  <span class="brand">THE SWEDISH HAMMER</span>
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
     <span style="font-family:var(--font-cond);font-size:11px;letter-spacing:2px;color:var(--gold)">TIME LOGGER</span>
     <span id="headerDate" style="font-size:11px;color:var(--gray)"></span>
@@ -464,6 +170,7 @@
   <div class="tab" onclick="switchTab('entries')">Entries</div>
   <div class="tab" onclick="switchTab('jobs')">Jobs</div>
   <div class="tab" onclick="switchTab('export')">Export</div>
+  <div class="tab" onclick="switchTab('report')">Client</div>
 </div>
 
 <!-- TAB 1: LOG TIME -->
@@ -486,18 +193,40 @@
     <div class="card-title">📋 Job Details</div>
     <div class="field">
       <label>Client Name</label>
-      <input type="text" id="client" placeholder="e.g. Lynda Pinkerton" list="clientList" autocomplete="off">
+      <input type="text" id="client" placeholder="e.g. Lynda Pinkerton" list="clientList" autocomplete="off" oninput="updateJobBanner()">
       <datalist id="clientList"></datalist>
     </div>
     <div class="field">
       <label>Job / Project Name</label>
-      <input type="text" id="jobName" placeholder="e.g. Rooftop Deck Rebuild" list="jobList" autocomplete="off">
+      <input type="text" id="jobName" placeholder="e.g. Rooftop Deck Rebuild" list="jobList" autocomplete="off" oninput="updateJobBanner()">
       <datalist id="jobList"></datalist>
     </div>
 
-    <!-- MULTI-TASK PICKER -->
+    <!-- RUNNING JOB BANNER -->
+    <div class="job-banner" id="jobBanner" style="display:none">
+      <div>
+        <div class="job-banner-label">THIS JOB SO FAR</div>
+        <div id="bannerJobName" style="font-size:12px;color:var(--gray-light);margin-top:2px"></div>
+      </div>
+      <div class="job-banner-vals">
+        <div class="job-banner-stat">
+          <div class="job-banner-num" id="bannerHrs">0h</div>
+          <div class="job-banner-sub">LOGGED</div>
+        </div>
+        <div class="job-banner-stat">
+          <div class="job-banner-num" id="bannerEarn">$0</div>
+          <div class="job-banner-sub">BILLED</div>
+        </div>
+        <div class="job-banner-stat" id="bannerBudgetWrap" style="display:none">
+          <div class="job-banner-num" id="bannerBudgetPct">0%</div>
+          <div class="job-banner-sub">OF BUDGET</div>
+          <div class="budget-bar-wrap"><div class="budget-bar-fill" id="bannerBudgetBar" style="width:0%;background:var(--gold)"></div></div>
+        </div>
+      </div>
+    </div>
+
     <div class="field">
-      <label>Tasks / Phases <span style="color:var(--gold-dim);font-size:10px;letter-spacing:0">(tap to add, × to remove)</span></label>
+      <label>Tasks / Phases <span style="color:var(--gold-dim);font-size:10px;letter-spacing:0">(tap to add · × to remove)</span></label>
       <div class="task-picker">
         <div class="task-selected" id="taskSelected"></div>
         <div class="task-add-row">
@@ -512,28 +241,16 @@
   <div class="card">
     <div class="card-title">🕐 Time & Billing</div>
     <div class="row2">
-      <div class="field">
-        <label>Start Time</label>
-        <input type="datetime-local" id="startTime">
-      </div>
-      <div class="field">
-        <label>End Time</label>
-        <input type="datetime-local" id="endTime">
-      </div>
+      <div class="field"><label>Start Time</label><input type="datetime-local" id="startTime"></div>
+      <div class="field"><label>End Time</label><input type="datetime-local" id="endTime"></div>
     </div>
     <div style="background:var(--input-bg);border:1px solid var(--card-border);border-radius:6px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
       <span style="font-family:var(--font-cond);font-size:12px;letter-spacing:1px;color:var(--gray)">CALCULATED HOURS</span>
       <span id="calcHours" style="font-family:var(--font-display);font-size:26px;color:var(--gold-bright)">—</span>
     </div>
     <div class="row2">
-      <div class="field">
-        <label>Drive Time (min)</label>
-        <input type="number" id="driveTime" placeholder="0" min="0" max="480" value="0">
-      </div>
-      <div class="field">
-        <label>Hourly Rate ($)</label>
-        <input type="number" id="rate" placeholder="110" value="110" min="0">
-      </div>
+      <div class="field"><label>Drive Time (min)</label><input type="number" id="driveTime" placeholder="0" min="0" max="480" value="0"></div>
+      <div class="field"><label>Hourly Rate ($)</label><input type="number" id="rate" placeholder="110" value="110" min="0"></div>
     </div>
     <div class="toggle-row">
       <div class="toggle on" id="billableToggle" onclick="toggleBillable()"></div>
@@ -543,18 +260,19 @@
   </div>
 
   <div class="card">
-    <div class="card-title">📝 Notes</div>
+    <div class="card-title">📝 Notes & Media</div>
     <div class="field">
-      <textarea id="notes" placeholder="What was done? Issues? Materials used? Next steps?"></textarea>
+      <textarea id="notes" placeholder="What was done? Issues? Materials? Next steps?"></textarea>
     </div>
     <div class="field">
-      <label>Crew / Sub on Site</label>
-      <input type="text" id="crew" placeholder="Solo, or name subs present">
+      <label>Photos</label>
+      <div class="photo-strip" id="photoStrip">
+        <div class="photo-add-btn" onclick="document.getElementById('photoInput').click()">📷</div>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" multiple style="display:none" onchange="handlePhotos(event)">
     </div>
-    <div class="field">
-      <label>Weather / Conditions</label>
-      <input type="text" id="weather" placeholder="e.g. Hot, sunny — no issues">
-    </div>
+    <div class="field"><label>Crew / Sub on Site</label><input type="text" id="crew" placeholder="Solo, or name subs present"></div>
+    <div class="field"><label>Weather / Conditions</label><input type="text" id="weather" placeholder="e.g. Hot, sunny — no issues"></div>
   </div>
 
   <button class="btn btn-gold btn-full" style="font-size:16px;padding:14px;" onclick="saveEntry()">✔ SAVE ENTRY</button>
@@ -585,14 +303,8 @@
 <div class="view" id="view-export">
   <div class="card">
     <div class="card-title">📤 Export for Invoice</div>
-    <div class="field">
-      <label>Filter by Client</label>
-      <select id="exportClient" onchange="generateExport()"><option value="">All Clients</option></select>
-    </div>
-    <div class="field">
-      <label>Filter by Job</label>
-      <select id="exportJob" onchange="generateExport()"><option value="">All Jobs</option></select>
-    </div>
+    <div class="field"><label>Filter by Client</label><select id="exportClient" onchange="generateExport()"><option value="">All Clients</option></select></div>
+    <div class="field"><label>Filter by Job</label><select id="exportJob" onchange="generateExport()"><option value="">All Jobs</option></select></div>
     <div class="row2">
       <div class="field"><label>From Date</label><input type="date" id="exportFrom" onchange="generateExport()"></div>
       <div class="field"><label>To Date</label><input type="date" id="exportTo" onchange="generateExport()"></div>
@@ -600,8 +312,8 @@
     <div id="exportSummaryLine" style="font-family:var(--font-cond);font-size:13px;color:var(--gold);margin-bottom:10px;letter-spacing:1px;"></div>
     <div class="export-preview" id="exportPreview">Select filters above to generate invoice line items…</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button class="btn btn-gold" onclick="copyExport()">📋 Copy Text</button>
-      <button class="btn btn-navy" onclick="exportCSV()">⬇ Download CSV</button>
+      <button class="btn btn-gold" onclick="copyExport()">📋 Copy</button>
+      <button class="btn btn-navy" onclick="exportCSV()">⬇ CSV</button>
     </div>
   </div>
   <div class="card">
@@ -613,6 +325,43 @@
     </div>
     <input type="file" id="importFile" accept=".csv" style="display:none" onchange="handleImport(event)">
     <div style="margin-top:12px;font-size:12px;color:var(--gray);">All data stored locally on this device.</div>
+  </div>
+</div>
+
+<!-- TAB 5: CLIENT REPORT -->
+<div class="view" id="view-report">
+  <div class="card">
+    <div class="card-title">📄 Client Report</div>
+    <div class="field"><label>Client</label><select id="rpt_client" onchange="populateReportJobs();generateReport()"><option value="">— Select Client —</option></select></div>
+    <div class="field"><label>Job / Project</label><select id="rpt_job" onchange="generateReport()"><option value="">All Jobs</option></select></div>
+    <div class="row2">
+      <div class="field"><label>From Date</label><input type="date" id="rpt_from" onchange="generateReport()"></div>
+      <div class="field"><label>To Date</label><input type="date" id="rpt_to" onchange="generateReport()"></div>
+    </div>
+    <div class="field"><label>What to Show Client</label>
+      <select id="rpt_detail" onchange="generateReport()">
+        <option value="tasks">Hours + Tasks only</option>
+        <option value="total">Hours + Tasks + Total Amount</option>
+        <option value="lineitem">Full Line-Item Breakdown with Costs</option>
+      </select>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle" id="rpt_sigToggle" onclick="toggleRptSig()"></div>
+      <span class="toggle-label">Include client signature field</span>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle" id="rpt_photoToggle" onclick="toggleRptPhoto()"></div>
+      <span class="toggle-label">Include progress photos</span>
+    </div>
+  </div>
+  <div class="card" id="rpt_preview_card" style="display:none">
+    <div class="card-title">👁 Preview</div>
+    <div id="rpt_preview" style="font-size:13px;line-height:1.7;color:var(--gray-light);"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+      <button class="btn btn-gold" onclick="copyReport()">📋 Copy</button>
+      <button class="btn btn-navy" onclick="printReport()">🖨 Print / PDF</button>
+      <button class="btn btn-navy" onclick="emailReport()">✉ Email</button>
+    </div>
   </div>
 </div>
 
@@ -644,455 +393,427 @@
   </div>
 </div>
 
+<!-- JOB BUDGET MODAL -->
+<div class="modal-overlay" id="budgetModal">
+  <div class="modal">
+    <div class="modal-title">SET JOB BUDGET</div>
+    <div style="font-size:13px;color:var(--gray);margin-bottom:14px;" id="budgetModalSub"></div>
+    <div class="field"><label>Estimated Hours Budget</label><input type="number" id="budgetHrs" placeholder="e.g. 40" min="0" step="0.5"></div>
+    <div style="display:flex;gap:10px;margin-top:10px;">
+      <button class="btn btn-gold" style="flex:1" onclick="saveBudget()">SAVE</button>
+      <button class="btn btn-ghost btn-sm" onclick="clearBudget()">Clear Budget</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('budgetModal')">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO VIEW MODAL -->
+<div class="modal-overlay" id="photoModal">
+  <div class="modal" style="text-align:center">
+    <img id="photoModalImg" class="photo-modal-img" src="" alt="Progress photo">
+    <div style="margin-top:12px;">
+      <button class="btn btn-ghost" onclick="closeModal('photoModal')">CLOSE</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ── DB ──
-const DB_NAME = 'SHTimelog', DB_VERSION = 1, STORE = 'entries';
+// ════════ DB ════════
+const DB_NAME='SHTimelog', DB_VERSION=2, STORE='entries', BUDGET_STORE='budgets';
 let db;
 
-function openDB() {
-  return new Promise((res, rej) => {
-    const req = indexedDB.open(DB_NAME, DB_VERSION);
-    req.onupgradeneeded = e => {
-      const d = e.target.result;
-      if (!d.objectStoreNames.contains(STORE)) {
-        const s = d.createObjectStore(STORE, { keyPath: 'id' });
-        s.createIndex('client', 'client', { unique: false });
-        s.createIndex('jobName', 'jobName', { unique: false });
-        s.createIndex('startTime', 'startTime', { unique: false });
+function openDB(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open(DB_NAME,DB_VERSION);
+    req.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains(STORE)){
+        const s=d.createObjectStore(STORE,{keyPath:'id'});
+        s.createIndex('client','client',{unique:false});
+        s.createIndex('jobName','jobName',{unique:false});
+        s.createIndex('startTime','startTime',{unique:false});
+      }
+      if(!d.objectStoreNames.contains(BUDGET_STORE)){
+        d.createObjectStore(BUDGET_STORE,{keyPath:'key'});
       }
     };
-    req.onsuccess = e => { db = e.target.result; res(db); };
-    req.onerror = () => rej(req.error);
+    req.onsuccess=e=>{db=e.target.result;res(db)};
+    req.onerror=()=>rej(req.error);
   });
 }
-function dbAll() {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(STORE, 'readonly');
-    const req = tx.objectStore(STORE).getAll();
-    req.onsuccess = () => res(req.result || []);
-    req.onerror = () => rej(req.error);
+function dbAll(){return new Promise((res,rej)=>{const tx=db.transaction(STORE,'readonly');const req=tx.objectStore(STORE).getAll();req.onsuccess=()=>res(req.result||[]);req.onerror=()=>rej(req.error)})}
+function dbPut(entry){return new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');const req=tx.objectStore(STORE).put(entry);req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error)})}
+function dbDelete(id){return new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');const req=tx.objectStore(STORE).delete(id);req.onsuccess=()=>res();req.onerror=()=>rej(req.error)})}
+function dbGetBudget(key){return new Promise((res,rej)=>{const tx=db.transaction(BUDGET_STORE,'readonly');const req=tx.objectStore(BUDGET_STORE).get(key);req.onsuccess=()=>res(req.result?.hours||0);req.onerror=()=>rej(req.error)})}
+function dbSetBudget(key,hours){return new Promise((res,rej)=>{const tx=db.transaction(BUDGET_STORE,'readwrite');const req=tx.objectStore(BUDGET_STORE).put({key,hours});req.onsuccess=()=>res();req.onerror=()=>rej(req.error)})}
+function dbDeleteBudget(key){return new Promise((res,rej)=>{const tx=db.transaction(BUDGET_STORE,'readwrite');const req=tx.objectStore(BUDGET_STORE).delete(key);req.onsuccess=()=>res();req.onerror=()=>rej(req.error)})}
+
+// ════════ TASK PRESETS ════════
+const PRESET_TASKS=['Demo / Tearout','Site Prep','Framing','Blocking / Backing','Rough Plumbing','Rough Electrical','Drywall','Trim / Millwork','Paint / Stain','Flooring','Tile','Hardware / Fixtures','Doors / Windows','Deck / Fence','Roofing','Concrete / Masonry','Material Run','Cleanup','Punch List','Client Meeting','Assessment / Walkthrough','Admin / Estimating','Site Protection'];
+let selectedTasks=[];
+let pendingPhotos=[]; // {dataUrl, name}
+
+function renderTaskUI(){
+  document.getElementById('taskSelected').innerHTML=selectedTasks.map((t,i)=>`<span class="task-tag">${t}<span class="remove" onclick="removeTask(${i})">×</span></span>`).join('');
+  document.getElementById('taskPresets').innerHTML=PRESET_TASKS.map(t=>`<span class="task-preset ${selectedTasks.includes(t)?'used':''}" onclick="addPresetTask('${t.replace(/'/g,"\\'")}')">${t}</span>`).join('');
+}
+function addTask(){const i=document.getElementById('taskInput');const v=i.value.trim();if(v&&!selectedTasks.includes(v)){selectedTasks.push(v);renderTaskUI()}i.value='';i.focus()}
+function addPresetTask(t){if(!selectedTasks.includes(t)){selectedTasks.push(t);renderTaskUI()}}
+function removeTask(i){selectedTasks.splice(i,1);renderTaskUI()}
+
+// ════════ PHOTOS ════════
+function handlePhotos(e){
+  const files=[...e.target.files];
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      pendingPhotos.push({dataUrl:ev.target.result,name:file.name});
+      renderPhotoStrip();
+    };
+    reader.readAsDataURL(file);
   });
+  e.target.value='';
 }
-function dbPut(entry) {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    const req = tx.objectStore(STORE).put(entry);
-    req.onsuccess = () => res(req.result);
-    req.onerror = () => rej(req.error);
-  });
+function renderPhotoStrip(){
+  const strip=document.getElementById('photoStrip');
+  strip.innerHTML=pendingPhotos.map((p,i)=>`<img class="photo-thumb" src="${p.dataUrl}" onclick="viewPhoto('${p.dataUrl}')" title="${p.name}"><span onclick="removePhoto(${i})" style="position:relative;cursor:pointer;font-size:10px;color:var(--red);margin-left:-8px;margin-top:-4px;z-index:1">×</span>`).join('')+`<div class="photo-add-btn" onclick="document.getElementById('photoInput').click()">📷</div>`;
 }
-function dbDelete(id) {
-  return new Promise((res, rej) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    const req = tx.objectStore(STORE).delete(id);
-    req.onsuccess = () => res();
-    req.onerror = () => rej(req.error);
-  });
-}
+function removePhoto(i){pendingPhotos.splice(i,1);renderPhotoStrip()}
+function viewPhoto(src){document.getElementById('photoModalImg').src=src;document.getElementById('photoModal').classList.add('open')}
 
-// ── TASK PRESETS ──
-const PRESET_TASKS = [
-  'Demo / Tearout','Site Prep','Framing','Blocking / Backing',
-  'Rough Plumbing','Rough Electrical','Drywall','Trim / Millwork',
-  'Paint / Stain','Flooring','Tile','Hardware / Fixtures',
-  'Doors / Windows','Deck / Fence','Roofing','Concrete / Masonry',
-  'Material Run','Cleanup','Punch List','Client Meeting',
-  'Assessment / Walkthrough','Admin / Estimating','Site Protection'
-];
+// ════════ TIMER ════════
+let timerInterval=null,timerStart=null,timerElapsed=0;
+function fmtTimer(ms){const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;return`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sc).padStart(2,'0')}`}
+function toLocalISO(d){const pad=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`}
+function startTimer(){if(timerInterval)return;timerStart=Date.now()-timerElapsed;if(!document.getElementById('startTime').value)document.getElementById('startTime').value=toLocalISO(new Date(timerStart+timerElapsed));timerInterval=setInterval(()=>{timerElapsed=Date.now()-timerStart;document.getElementById('timerDisplay').textContent=fmtTimer(timerElapsed);document.getElementById('timerDisplay').className='timer-display running';document.getElementById('timerStatus').textContent='RUNNING';updateCalcHours()},1000);document.getElementById('timerStartBtn').disabled=true;document.getElementById('timerStopBtn').disabled=false}
+function stopTimer(){if(!timerInterval)return;clearInterval(timerInterval);timerInterval=null;document.getElementById('endTime').value=toLocalISO(new Date());document.getElementById('timerDisplay').className='timer-display';document.getElementById('timerStatus').textContent='STOPPED — '+fmtTimer(timerElapsed);document.getElementById('timerStartBtn').disabled=false;document.getElementById('timerStopBtn').disabled=true;updateCalcHours()}
+function resetTimer(){clearInterval(timerInterval);timerInterval=null;timerStart=null;timerElapsed=0;document.getElementById('timerDisplay').textContent='00:00:00';document.getElementById('timerDisplay').className='timer-display';document.getElementById('timerStatus').textContent='READY';document.getElementById('timerStartBtn').disabled=false;document.getElementById('timerStopBtn').disabled=true}
 
-let selectedTasks = [];
-
-function renderTaskUI() {
-  const sel = document.getElementById('taskSelected');
-  sel.innerHTML = selectedTasks.map((t,i) =>
-    `<span class="task-tag">${t}<span class="remove" onclick="removeTask(${i})">×</span></span>`
-  ).join('');
-
-  const presets = document.getElementById('taskPresets');
-  presets.innerHTML = PRESET_TASKS.map(t =>
-    `<span class="task-preset ${selectedTasks.includes(t)?'used':''}" onclick="addPresetTask('${t.replace(/'/g,"\\'")}'">${t}</span>`
-  ).join('');
-}
-
-function addTask() {
-  const input = document.getElementById('taskInput');
-  const val = input.value.trim();
-  if (val && !selectedTasks.includes(val)) {
-    selectedTasks.push(val);
-    renderTaskUI();
+// ════════ JOB BANNER ════════
+async function updateJobBanner(){
+  const client=document.getElementById('client').value.trim();
+  const job=document.getElementById('jobName').value.trim();
+  if(!client||!job){document.getElementById('jobBanner').style.display='none';return}
+  const entries=await dbAll();
+  const matching=entries.filter(e=>e.client===client&&e.jobName===job&&e.billable);
+  if(!matching.length){document.getElementById('jobBanner').style.display='none';return}
+  const hrs=matching.reduce((a,e)=>a+(e.hours||0),0);
+  const earn=matching.reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
+  const budgetKey=`${client}||${job}`;
+  const budget=await dbGetBudget(budgetKey);
+  document.getElementById('bannerJobName').textContent=job;
+  document.getElementById('bannerHrs').textContent=hrs.toFixed(1)+'h';
+  document.getElementById('bannerEarn').textContent='$'+earn.toFixed(0);
+  if(budget>0){
+    const pct=Math.round((hrs/budget)*100);
+    document.getElementById('bannerBudgetWrap').style.display='block';
+    document.getElementById('bannerBudgetPct').textContent=pct+'%';
+    const bar=document.getElementById('bannerBudgetBar');
+    bar.style.width=Math.min(pct,100)+'%';
+    bar.style.background=pct>=100?'var(--red)':pct>=80?'var(--orange)':'var(--gold)';
+  } else {
+    document.getElementById('bannerBudgetWrap').style.display='none';
   }
-  input.value = '';
-  input.focus();
+  document.getElementById('jobBanner').style.display='flex';
 }
 
-function addPresetTask(t) {
-  if (!selectedTasks.includes(t)) {
-    selectedTasks.push(t);
-    renderTaskUI();
-  }
+// ════════ FORM ════════
+let isBillable=true,editBillable=true,editingId=null,currentFilter='all';
+let rptSig=false,rptPhoto=false;
+let budgetEditKey=null;
+
+document.getElementById('startTime').addEventListener('change',updateCalcHours);
+document.getElementById('endTime').addEventListener('change',updateCalcHours);
+document.getElementById('rate').addEventListener('input',updateCalcHours);
+
+function updateCalcHours(){
+  const s=document.getElementById('startTime').value,e=document.getElementById('endTime').value;
+  const rate=parseFloat(document.getElementById('rate').value)||110;
+  if(s&&e){const diff=(new Date(e)-new Date(s))/3600000;if(diff>0){document.getElementById('calcHours').textContent=diff.toFixed(2)+'h';document.getElementById('rateCalc').textContent=isBillable?`$${(diff*rate).toFixed(2)} billable`:'Non-billable';}else{document.getElementById('calcHours').textContent='—';document.getElementById('rateCalc').textContent=''}}else if(timerInterval){document.getElementById('calcHours').textContent=fmtTimer(timerElapsed).slice(0,5)}
 }
+function toggleBillable(){isBillable=!isBillable;document.getElementById('billableToggle').className='toggle'+(isBillable?' on':'');updateCalcHours()}
+function toggleEditBillable(){editBillable=!editBillable;document.getElementById('edit_billableToggle').className='toggle'+(editBillable?' on':'')}
+function toggleRptSig(){rptSig=!rptSig;document.getElementById('rpt_sigToggle').className='toggle'+(rptSig?' on':'');generateReport()}
+function toggleRptPhoto(){rptPhoto=!rptPhoto;document.getElementById('rpt_photoToggle').className='toggle'+(rptPhoto?' on':'');generateReport()}
 
-function removeTask(i) {
-  selectedTasks.splice(i, 1);
-  renderTaskUI();
-}
-
-// ── TIMER ──
-let timerInterval = null, timerStart = null, timerElapsed = 0;
-
-function fmtTimer(ms) {
-  const s = Math.floor(ms/1000), h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sc = s%60;
-  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sc).padStart(2,'0')}`;
-}
-function toLocalISO(d) {
-  const pad = n => String(n).padStart(2,'0');
-  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-
-function startTimer() {
-  if (timerInterval) return;
-  timerStart = Date.now() - timerElapsed;
-  if (!document.getElementById('startTime').value)
-    document.getElementById('startTime').value = toLocalISO(new Date(timerStart + timerElapsed));
-  timerInterval = setInterval(() => {
-    timerElapsed = Date.now() - timerStart;
-    document.getElementById('timerDisplay').textContent = fmtTimer(timerElapsed);
-    document.getElementById('timerDisplay').className = 'timer-display running';
-    document.getElementById('timerStatus').textContent = 'RUNNING';
-    updateCalcHours();
-  }, 1000);
-  document.getElementById('timerStartBtn').disabled = true;
-  document.getElementById('timerStopBtn').disabled = false;
-}
-function stopTimer() {
-  if (!timerInterval) return;
-  clearInterval(timerInterval); timerInterval = null;
-  document.getElementById('endTime').value = toLocalISO(new Date());
-  document.getElementById('timerDisplay').className = 'timer-display';
-  document.getElementById('timerStatus').textContent = 'STOPPED — ' + fmtTimer(timerElapsed);
-  document.getElementById('timerStartBtn').disabled = false;
-  document.getElementById('timerStopBtn').disabled = true;
-  updateCalcHours();
-}
-function resetTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null; timerStart = null; timerElapsed = 0;
-  document.getElementById('timerDisplay').textContent = '00:00:00';
-  document.getElementById('timerDisplay').className = 'timer-display';
-  document.getElementById('timerStatus').textContent = 'READY';
-  document.getElementById('timerStartBtn').disabled = false;
-  document.getElementById('timerStopBtn').disabled = true;
-}
-
-// ── FORM ──
-let isBillable = true, editBillable = true, editingId = null, currentFilter = 'all';
-
-document.getElementById('startTime').addEventListener('change', updateCalcHours);
-document.getElementById('endTime').addEventListener('change', updateCalcHours);
-document.getElementById('rate').addEventListener('input', updateCalcHours);
-
-function updateCalcHours() {
-  const s = document.getElementById('startTime').value;
-  const e = document.getElementById('endTime').value;
-  const rate = parseFloat(document.getElementById('rate').value) || 110;
-  if (s && e) {
-    const diff = (new Date(e) - new Date(s)) / 3600000;
-    if (diff > 0) {
-      document.getElementById('calcHours').textContent = diff.toFixed(2) + 'h';
-      document.getElementById('rateCalc').textContent = isBillable ? `$${(diff * rate).toFixed(2)} billable` : 'Non-billable';
-    } else {
-      document.getElementById('calcHours').textContent = '—';
-      document.getElementById('rateCalc').textContent = '';
-    }
-  } else if (timerInterval) {
-    document.getElementById('calcHours').textContent = fmtTimer(timerElapsed).slice(0,5);
-  }
-}
-
-function toggleBillable() {
-  isBillable = !isBillable;
-  document.getElementById('billableToggle').className = 'toggle' + (isBillable ? ' on' : '');
-  updateCalcHours();
-}
-function toggleEditBillable() {
-  editBillable = !editBillable;
-  document.getElementById('edit_billableToggle').className = 'toggle' + (editBillable ? ' on' : '');
-}
-
-async function saveEntry() {
-  const client = document.getElementById('client').value.trim();
-  const jobName = document.getElementById('jobName').value.trim();
-  const startTime = document.getElementById('startTime').value;
-  const endTime = document.getElementById('endTime').value;
-
-  if (!client) { showToast('Enter a client name'); return; }
-  if (!jobName) { showToast('Enter a job name'); return; }
-  if (!startTime) { showToast('Set a start time'); return; }
-
-  let hours = 0;
-  if (startTime && endTime) {
-    hours = (new Date(endTime) - new Date(startTime)) / 3600000;
-    if (hours < 0) { showToast('End time before start time'); return; }
-  } else if (timerElapsed > 0) {
-    hours = timerElapsed / 3600000;
-  }
-
-  const entry = {
-    id: Date.now().toString(),
-    client, jobName,
-    tasks: [...selectedTasks],
-    startTime, endTime,
-    hours: Math.round(hours * 100) / 100,
-    driveTime: parseInt(document.getElementById('driveTime').value) || 0,
-    rate: parseFloat(document.getElementById('rate').value) || 110,
-    billable: isBillable,
-    notes: document.getElementById('notes').value.trim(),
-    crew: document.getElementById('crew').value.trim(),
-    weather: document.getElementById('weather').value.trim(),
-    created: new Date().toISOString()
+async function saveEntry(){
+  const client=document.getElementById('client').value.trim();
+  const jobName=document.getElementById('jobName').value.trim();
+  const startTime=document.getElementById('startTime').value;
+  const endTime=document.getElementById('endTime').value;
+  if(!client){showToast('Enter a client name');return}
+  if(!jobName){showToast('Enter a job name');return}
+  if(!startTime){showToast('Set a start time');return}
+  let hours=0;
+  if(startTime&&endTime){hours=(new Date(endTime)-new Date(startTime))/3600000;if(hours<0){showToast('End time before start time');return}}
+  else if(timerElapsed>0){hours=timerElapsed/3600000}
+  const entry={
+    id:Date.now().toString(),client,jobName,
+    tasks:[...selectedTasks],startTime,endTime,
+    hours:Math.round(hours*100)/100,
+    driveTime:parseInt(document.getElementById('driveTime').value)||0,
+    rate:parseFloat(document.getElementById('rate').value)||110,
+    billable:isBillable,
+    notes:document.getElementById('notes').value.trim(),
+    crew:document.getElementById('crew').value.trim(),
+    weather:document.getElementById('weather').value.trim(),
+    photos:pendingPhotos.map(p=>p.dataUrl),
+    created:new Date().toISOString()
   };
-
   await dbPut(entry);
   showToast('Entry saved ✔');
-  resetForm();
-  resetTimer();
-  refreshAutocompleteLists();
+  resetForm();resetTimer();refreshAutocompleteLists();
 }
 
-function resetForm() {
-  ['client','jobName','notes','crew','weather'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('startTime').value = '';
-  document.getElementById('endTime').value = '';
-  document.getElementById('driveTime').value = '0';
-  document.getElementById('rate').value = '110';
-  selectedTasks = [];
+function resetForm(){
+  ['client','jobName','notes','crew','weather'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('startTime').value='';document.getElementById('endTime').value='';
+  document.getElementById('driveTime').value='0';document.getElementById('rate').value='110';
+  selectedTasks=[];pendingPhotos=[];renderTaskUI();renderPhotoStrip();
+  isBillable=true;document.getElementById('billableToggle').className='toggle on';
+  document.getElementById('calcHours').textContent='—';document.getElementById('rateCalc').textContent='';
+  document.getElementById('jobBanner').style.display='none';
+}
+
+// Clone entry into form
+function cloneEntry(e){
+  document.getElementById('client').value=e.client||'';
+  document.getElementById('jobName').value=e.jobName||'';
+  selectedTasks=[...(e.tasks||[])];
   renderTaskUI();
-  isBillable = true;
-  document.getElementById('billableToggle').className = 'toggle on';
-  document.getElementById('calcHours').textContent = '—';
-  document.getElementById('rateCalc').textContent = '';
+  document.getElementById('driveTime').value=e.driveTime||0;
+  document.getElementById('rate').value=e.rate||110;
+  isBillable=e.billable!==false;
+  document.getElementById('billableToggle').className='toggle'+(isBillable?' on':'');
+  // Set start to now
+  document.getElementById('startTime').value=toLocalISO(new Date());
+  document.getElementById('endTime').value='';
+  document.getElementById('calcHours').textContent='—';
+  pendingPhotos=[];renderPhotoStrip();
+  switchTab('log');
+  updateJobBanner();
+  showToast('Cloned — set your end time');
 }
 
-// ── AUTOCOMPLETE ──
-async function refreshAutocompleteLists() {
-  const entries = await dbAll();
-  const clients = [...new Set(entries.map(e => e.client).filter(Boolean))];
-  const jobs = [...new Set(entries.map(e => e.jobName).filter(Boolean))];
-  document.getElementById('clientList').innerHTML = clients.map(c => `<option value="${c}">`).join('');
-  document.getElementById('jobList').innerHTML = jobs.map(j => `<option value="${j}">`).join('');
+// ════════ AUTOCOMPLETE ════════
+async function refreshAutocompleteLists(){
+  const entries=await dbAll();
+  const clients=[...new Set(entries.map(e=>e.client).filter(Boolean))];
+  const jobs=[...new Set(entries.map(e=>e.jobName).filter(Boolean))];
+  document.getElementById('clientList').innerHTML=clients.map(c=>`<option value="${c}">`).join('');
+  document.getElementById('jobList').innerHTML=jobs.map(j=>`<option value="${j}">`).join('');
 }
 
-// ── RENDER ENTRIES ──
-function fmtDate(dtStr) {
-  if (!dtStr) return '—';
-  return new Date(dtStr).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
-}
-function fmtTime(dtStr) {
-  if (!dtStr) return '—';
-  return new Date(dtStr).toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true });
-}
-function fmtMoney(n) { return '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+// ════════ RENDER ENTRIES ════════
+function fmtDate(dtStr){if(!dtStr)return'—';return new Date(dtStr).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
+function fmtTime(dtStr){if(!dtStr)return'—';return new Date(dtStr).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})}
+function fmtMoney(n){return'$'+Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
 
-function getFilteredEntries(entries) {
-  const now = new Date();
-  const todayStr = now.toDateString();
-  let filtered = entries;
-  if (currentFilter === 'today') filtered = entries.filter(e => e.startTime && new Date(e.startTime).toDateString() === todayStr);
-  else if (currentFilter === 'week') { const wa = new Date(now); wa.setDate(now.getDate()-7); filtered = entries.filter(e => e.startTime && new Date(e.startTime) >= wa); }
-  else if (currentFilter === 'month') filtered = entries.filter(e => e.startTime && new Date(e.startTime).getMonth() === now.getMonth() && new Date(e.startTime).getFullYear() === now.getFullYear());
-
-  const search = document.getElementById('searchEntries')?.value?.toLowerCase() || '';
-  if (search) {
-    filtered = filtered.filter(e =>
-      (e.client||'').toLowerCase().includes(search) ||
-      (e.jobName||'').toLowerCase().includes(search) ||
-      (e.tasks||[]).join(' ').toLowerCase().includes(search) ||
-      (e.notes||'').toLowerCase().includes(search)
-    );
-  }
-  return filtered.sort((a,b) => new Date(b.startTime||b.created) - new Date(a.startTime||a.created));
+function getFilteredEntries(entries){
+  const now=new Date();const todayStr=now.toDateString();let filtered=entries;
+  if(currentFilter==='today')filtered=entries.filter(e=>e.startTime&&new Date(e.startTime).toDateString()===todayStr);
+  else if(currentFilter==='week'){const wa=new Date(now);wa.setDate(now.getDate()-7);filtered=entries.filter(e=>e.startTime&&new Date(e.startTime)>=wa)}
+  else if(currentFilter==='month')filtered=entries.filter(e=>e.startTime&&new Date(e.startTime).getMonth()===now.getMonth()&&new Date(e.startTime).getFullYear()===now.getFullYear());
+  const search=document.getElementById('searchEntries')?.value?.toLowerCase()||'';
+  if(search)filtered=filtered.filter(e=>(e.client||'').toLowerCase().includes(search)||(e.jobName||'').toLowerCase().includes(search)||(e.tasks||[]).join(' ').toLowerCase().includes(search)||(e.notes||'').toLowerCase().includes(search));
+  return filtered.sort((a,b)=>new Date(b.startTime||b.created)-new Date(a.startTime||a.created));
 }
 
-async function renderEntries() {
-  const all = await dbAll();
-  const entries = getFilteredEntries(all);
-  const container = document.getElementById('entriesList');
-  if (!entries.length) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">🔨</div><div class="empty-text">No entries found</div></div>`;
-    return;
-  }
-  const groups = {};
-  entries.forEach(e => {
-    const dk = e.startTime ? fmtDate(e.startTime) : 'No Date';
-    if (!groups[dk]) groups[dk] = [];
-    groups[dk].push(e);
-  });
-  container.innerHTML = Object.entries(groups).map(([date, grp]) => {
-    const dayHrs = grp.reduce((a,e) => a+(e.hours||0), 0);
-    const dayEarn = grp.filter(e=>e.billable).reduce((a,e) => a+(e.hours||0)*(e.rate||110), 0);
-    return `<div class="date-header">${date} &nbsp;·&nbsp; ${dayHrs.toFixed(2)}h &nbsp;·&nbsp; ${fmtMoney(dayEarn)}</div>${grp.map(entryHTML).join('')}`;
+async function renderEntries(){
+  const all=await dbAll();const entries=getFilteredEntries(all);
+  const container=document.getElementById('entriesList');
+  if(!entries.length){container.innerHTML=`<div class="empty-state"><div class="empty-icon">🔨</div><div class="empty-text">No entries found</div></div>`;return}
+  const groups={};
+  entries.forEach(e=>{const dk=e.startTime?fmtDate(e.startTime):'No Date';if(!groups[dk])groups[dk]=[];groups[dk].push(e)});
+  container.innerHTML=Object.entries(groups).map(([date,grp])=>{
+    const dayHrs=grp.reduce((a,e)=>a+(e.hours||0),0);
+    const dayEarn=grp.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
+    return`<div class="date-header">${date} &nbsp;·&nbsp; ${dayHrs.toFixed(2)}h &nbsp;·&nbsp; ${fmtMoney(dayEarn)}</div>${grp.map(entryHTML).join('')}`;
   }).join('');
 }
 
-function entryHTML(e) {
-  const earn = e.billable ? fmtMoney((e.hours||0)*(e.rate||110)) : 'Non-billable';
-  const driveStr = e.driveTime > 0 ? `<span class="drive-badge">🚗 ${e.driveTime}min drive</span>` : '';
-  const tasks = (e.tasks && e.tasks.length) ? e.tasks : (e.phase ? [e.phase] : []);
-  const taskBadges = tasks.length ? `<div class="entry-tasks">${tasks.map(t=>`<span class="entry-task-badge">${t}</span>`).join('')}</div>` : '';
-  return `<div class="entry-card ${e.billable?'billable':''}">
+function entryHTML(e){
+  const earn=e.billable?fmtMoney((e.hours||0)*(e.rate||110)):'Non-billable';
+  const driveStr=e.driveTime>0?`<span class="drive-badge">🚗 ${e.driveTime}min</span>`:'';
+  const tasks=(e.tasks&&e.tasks.length)?e.tasks:(e.phase?[e.phase]:[]);
+  const taskBadges=tasks.length?`<div class="entry-tasks">${tasks.map(t=>`<span class="entry-task-badge">${t}</span>`).join('')}</div>`:'';
+  const photos=(e.photos&&e.photos.length)?`<div class="photo-strip" style="margin-top:8px">${e.photos.map(p=>`<img class="photo-thumb" src="${p}" onclick="viewPhoto('${p}')">`).join('')}</div>`:'';
+  return`<div class="entry-card ${e.billable?'billable':''}">
     <div class="entry-header">
-      <div>
-        <div class="entry-client">${e.client}</div>
-        <div class="entry-meta">${e.jobName}</div>
-      </div>
-      <div style="text-align:right">
-        <div class="entry-hours">${(e.hours||0).toFixed(2)}h</div>
-        <div style="font-size:12px;color:var(--gold-dim)">${earn}</div>
-      </div>
+      <div><div class="entry-client">${e.client}</div><div class="entry-meta">${e.jobName}</div></div>
+      <div style="text-align:right"><div class="entry-hours">${(e.hours||0).toFixed(2)}h</div><div style="font-size:12px;color:var(--gold-dim)">${earn}</div></div>
     </div>
     ${taskBadges}
     <div style="margin-top:4px">${driveStr} <span style="font-size:12px;color:var(--gray)">${fmtTime(e.startTime)} → ${fmtTime(e.endTime)}</span></div>
-    ${e.notes ? `<div class="entry-notes">${e.notes}</div>` : ''}
-    ${e.crew ? `<div style="font-size:12px;color:var(--gray);margin-top:4px">👷 ${e.crew}</div>` : ''}
+    ${e.notes?`<div class="entry-notes">${e.notes}</div>`:''}
+    ${photos}
+    ${e.crew?`<div style="font-size:12px;color:var(--gray);margin-top:4px">👷 ${e.crew}</div>`:''}
     <div class="entry-actions">
       <button class="btn btn-navy btn-sm" onclick="editEntry('${e.id}')">Edit</button>
+      <button class="btn btn-ghost btn-sm" onclick="cloneEntry(${JSON.stringify(e).replace(/'/g,'&#39;').replace(/"/g,'&quot;')})">Clone</button>
       <button class="btn btn-ghost btn-sm" onclick="deleteEntry('${e.id}')">Delete</button>
     </div>
   </div>`;
 }
 
-// ── JOBS DASHBOARD ──
-async function renderJobs() {
-  const entries = await dbAll();
-  const totalHrs = entries.reduce((a,e)=>a+(e.hours||0),0);
-  const totalEarn = entries.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
-  const totalDrive = entries.reduce((a,e)=>a+(e.driveTime||0),0);
-  const jobCount = new Set(entries.map(e=>e.jobName)).size;
-  document.getElementById('overallStats').innerHTML = `
+// ════════ JOBS DASHBOARD ════════
+async function renderJobs(){
+  const entries=await dbAll();
+  const totalHrs=entries.reduce((a,e)=>a+(e.hours||0),0);
+  const totalEarn=entries.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
+  const totalDrive=entries.reduce((a,e)=>a+(e.driveTime||0),0);
+  const jobCount=new Set(entries.map(e=>e.jobName)).size;
+  document.getElementById('overallStats').innerHTML=`
     <div class="stat-box"><div class="stat-val">${totalHrs.toFixed(1)}</div><div class="stat-lbl">Total Hours</div></div>
     <div class="stat-box"><div class="stat-val">${fmtMoney(totalEarn)}</div><div class="stat-lbl">Billable Earned</div></div>
     <div class="stat-box"><div class="stat-val">${jobCount}</div><div class="stat-lbl">Active Jobs</div></div>
     <div class="stat-box"><div class="stat-val">${(totalDrive/60).toFixed(1)}h</div><div class="stat-lbl">Drive Time</div></div>`;
-  const jobs = {};
-  entries.forEach(e => {
-    const k = `${e.jobName}||${e.client}`;
-    if (!jobs[k]) jobs[k] = { jobName:e.jobName, client:e.client, hours:0, earn:0 };
-    jobs[k].hours += e.hours||0;
-    if (e.billable) jobs[k].earn += (e.hours||0)*(e.rate||110);
+
+  const jobs={};
+  entries.forEach(e=>{
+    const k=`${e.jobName}||${e.client}`;
+    if(!jobs[k])jobs[k]={jobName:e.jobName,client:e.client,hours:0,earn:0,key:k};
+    jobs[k].hours+=e.hours||0;
+    if(e.billable)jobs[k].earn+=(e.hours||0)*(e.rate||110);
   });
-  const sorted = Object.values(jobs).sort((a,b)=>b.hours-a.hours);
-  const maxHrs = sorted[0]?.hours||1;
-  document.getElementById('jobsList').innerHTML = sorted.length ? `
+  const sorted=Object.values(jobs).sort((a,b)=>b.hours-a.hours);
+
+  // load budgets
+  const jobsWithBudgets=await Promise.all(sorted.map(async j=>{j.budget=await dbGetBudget(j.key);return j}));
+
+  document.getElementById('jobsList').innerHTML=jobsWithBudgets.length?`
     <div class="card"><div class="card-title">📊 By Job</div>
-    ${sorted.map(j=>`<div class="job-row">
-      <div><div class="job-name">${j.jobName}</div><div class="job-client">${j.client}</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,(j.hours/maxHrs)*100).toFixed(0)}%"></div></div></div>
-      <div style="text-align:right;min-width:70px"><div class="job-hrs">${j.hours.toFixed(1)}h</div><div class="job-earn">${fmtMoney(j.earn)}</div></div>
-    </div>`).join('')}</div>` : '<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-text">No data yet</div></div>';
+    ${jobsWithBudgets.map(j=>{
+      const hasBudget=j.budget>0;
+      const pct=hasBudget?Math.round((j.hours/j.budget)*100):null;
+      const barColor=pct>=100?'var(--red)':pct>=80?'var(--orange)':'var(--gold)';
+      return`<div class="job-row">
+        <div style="flex:1;min-width:0">
+          <div class="job-name">${j.jobName}</div>
+          <div class="job-client">${j.client}</div>
+          <div class="progress-bar" style="max-width:160px">
+            <div class="progress-fill ${hasBudget&&pct>=100?'progress-over':''}" style="width:${hasBudget?Math.min(pct,100):50}%;background:${hasBudget?barColor:'var(--navy-mid)'}"></div>
+          </div>
+          ${hasBudget?`<div style="font-size:10px;color:${pct>=100?'var(--red)':pct>=80?'var(--orange)':'var(--gray)'};font-family:var(--font-cond);margin-top:2px">${pct}% of ${j.budget}h budget</div>`:''}
+        </div>
+        <div style="text-align:right;min-width:80px;margin-left:10px">
+          <div class="job-hrs">${j.hours.toFixed(1)}h</div>
+          <div class="job-earn">${fmtMoney(j.earn)}</div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:6px;font-size:10px;padding:4px 8px" onclick="openBudgetModal('${j.key}','${j.jobName.replace(/'/g,"\\'")}',${j.budget})">⚙ Budget</button>
+        </div>
+      </div>`;
+    }).join('')}</div>`:'<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-text">No data yet</div></div>';
 }
 
-// ── EXPORT ──
-async function populateExportFilters() {
-  const entries = await dbAll();
-  const clients = [...new Set(entries.map(e=>e.client).filter(Boolean))];
-  const jobs = [...new Set(entries.map(e=>e.jobName).filter(Boolean))];
-  document.getElementById('exportClient').innerHTML = '<option value="">All Clients</option>'+clients.map(c=>`<option>${c}</option>`).join('');
-  document.getElementById('exportJob').innerHTML = '<option value="">All Jobs</option>'+jobs.map(j=>`<option>${j}</option>`).join('');
+// ════════ BUDGET MODAL ════════
+function openBudgetModal(key,jobName,current){
+  budgetEditKey=key;
+  document.getElementById('budgetModalSub').textContent=jobName;
+  document.getElementById('budgetHrs').value=current||'';
+  document.getElementById('budgetModal').classList.add('open');
+}
+async function saveBudget(){
+  const hrs=parseFloat(document.getElementById('budgetHrs').value)||0;
+  if(budgetEditKey)await dbSetBudget(budgetEditKey,hrs);
+  closeModal('budgetModal');showToast('Budget saved');renderJobs();
+}
+async function clearBudget(){
+  if(budgetEditKey)await dbDeleteBudget(budgetEditKey);
+  closeModal('budgetModal');showToast('Budget cleared');renderJobs();
 }
 
-async function generateExport() {
-  const entries = await dbAll();
-  const client = document.getElementById('exportClient').value;
-  const job = document.getElementById('exportJob').value;
-  const from = document.getElementById('exportFrom').value;
-  const to = document.getElementById('exportTo').value;
-  let filtered = entries;
-  if (client) filtered = filtered.filter(e=>e.client===client);
-  if (job) filtered = filtered.filter(e=>e.jobName===job);
-  if (from) filtered = filtered.filter(e=>e.startTime && e.startTime>=from);
-  if (to) filtered = filtered.filter(e=>e.startTime && e.startTime<=to+'T23:59');
-  filtered = filtered.sort((a,b)=>new Date(a.startTime||a.created)-new Date(b.startTime||b.created));
-  if (!filtered.length) { document.getElementById('exportPreview').textContent='No entries match.'; document.getElementById('exportSummaryLine').textContent=''; return; }
-  const totalHrs = filtered.reduce((a,e)=>a+(e.hours||0),0);
-  const billHrs = filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0),0);
-  const totalEarn = filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
-  document.getElementById('exportSummaryLine').textContent = `${filtered.length} entries · ${totalHrs.toFixed(2)}h total · ${billHrs.toFixed(2)}h billable · ${fmtMoney(totalEarn)}`;
-  const lines = filtered.map(e => {
-    const d = e.startTime ? fmtDate(e.startTime) : 'No Date';
-    const tasks = (e.tasks&&e.tasks.length) ? e.tasks.join(' · ') : (e.phase||'—');
-    const earn = e.billable ? fmtMoney((e.hours||0)*(e.rate||110)) : 'Non-billable';
-    return `${d} | ${tasks} | ${(e.hours||0).toFixed(2)}h @ $${e.rate||110}/hr = ${earn}${e.notes?'\n  Notes: '+e.notes:''}`;
+// ════════ EXPORT ════════
+async function populateExportFilters(){
+  const entries=await dbAll();
+  const clients=[...new Set(entries.map(e=>e.client).filter(Boolean))];
+  const jobs=[...new Set(entries.map(e=>e.jobName).filter(Boolean))];
+  document.getElementById('exportClient').innerHTML='<option value="">All Clients</option>'+clients.map(c=>`<option>${c}</option>`).join('');
+  document.getElementById('exportJob').innerHTML='<option value="">All Jobs</option>'+jobs.map(j=>`<option>${j}</option>`).join('');
+}
+
+async function generateExport(){
+  const entries=await dbAll();
+  let filtered=entries;
+  const client=document.getElementById('exportClient').value;
+  const job=document.getElementById('exportJob').value;
+  const from=document.getElementById('exportFrom').value;
+  const to=document.getElementById('exportTo').value;
+  if(client)filtered=filtered.filter(e=>e.client===client);
+  if(job)filtered=filtered.filter(e=>e.jobName===job);
+  if(from)filtered=filtered.filter(e=>e.startTime&&e.startTime>=from);
+  if(to)filtered=filtered.filter(e=>e.startTime&&e.startTime<=to+'T23:59');
+  filtered=filtered.sort((a,b)=>new Date(a.startTime||a.created)-new Date(b.startTime||b.created));
+  if(!filtered.length){document.getElementById('exportPreview').textContent='No entries match.';document.getElementById('exportSummaryLine').textContent='';return}
+  const totalHrs=filtered.reduce((a,e)=>a+(e.hours||0),0);
+  const billHrs=filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0),0);
+  const totalEarn=filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
+  document.getElementById('exportSummaryLine').textContent=`${filtered.length} entries · ${totalHrs.toFixed(2)}h · ${billHrs.toFixed(2)}h billable · ${fmtMoney(totalEarn)}`;
+  const lines=filtered.map(e=>{
+    const d=e.startTime?fmtDate(e.startTime):'No Date';
+    const tasks=(e.tasks&&e.tasks.length)?e.tasks.join(' · '):(e.phase||'—');
+    const earn=e.billable?fmtMoney((e.hours||0)*(e.rate||110)):'Non-billable';
+    return`${d} | ${tasks} | ${(e.hours||0).toFixed(2)}h @ $${e.rate||110}/hr = ${earn}${e.notes?'\n  Notes: '+e.notes:''}`;
   });
-  lines.push('');
-  lines.push(`TOTAL: ${billHrs.toFixed(2)} billable hrs · ${fmtMoney(totalEarn)}`);
-  document.getElementById('exportPreview').textContent = lines.join('\n');
+  lines.push('');lines.push(`TOTAL: ${billHrs.toFixed(2)} billable hrs · ${fmtMoney(totalEarn)}`);
+  document.getElementById('exportPreview').textContent=lines.join('\n');
 }
-
-function copyExport() { navigator.clipboard.writeText(document.getElementById('exportPreview').textContent).then(()=>showToast('Copied')); }
-
-async function exportCSV() {
-  const entries = await dbAll();
-  const client = document.getElementById('exportClient').value;
-  const job = document.getElementById('exportJob').value;
-  let filtered = entries;
-  if (client) filtered = filtered.filter(e=>e.client===client);
-  if (job) filtered = filtered.filter(e=>e.jobName===job);
+function copyExport(){navigator.clipboard.writeText(document.getElementById('exportPreview').textContent).then(()=>showToast('Copied'))}
+async function exportCSV(){
+  const entries=await dbAll();
+  const client=document.getElementById('exportClient').value;
+  const job=document.getElementById('exportJob').value;
+  let filtered=entries;
+  if(client)filtered=filtered.filter(e=>e.client===client);
+  if(job)filtered=filtered.filter(e=>e.jobName===job);
   downloadCSV(filtered,'sh-timelog-export.csv');
 }
-async function exportAllCSV() { downloadCSV(await dbAll(),'sh-timelog-all.csv'); }
-
-function downloadCSV(entries, filename) {
-  const headers = ['Date','Client','Job','Tasks','Hours','Rate','Billable','Earn','DriveMin','Crew','Weather','Notes'];
-  const rows = entries.map(e=>[
-    e.startTime?fmtDate(e.startTime):'',
-    e.client,e.jobName,
+async function exportAllCSV(){downloadCSV(await dbAll(),'sh-timelog-all.csv')}
+function downloadCSV(entries,filename){
+  const headers=['Date','Client','Job','Tasks','Hours','Rate','Billable','Earn','DriveMin','Crew','Weather','Notes'];
+  const rows=entries.map(e=>[
+    e.startTime?fmtDate(e.startTime):'',e.client,e.jobName,
     (e.tasks&&e.tasks.length)?e.tasks.join('; '):(e.phase||''),
     (e.hours||0).toFixed(2),e.rate||110,e.billable?'Yes':'No',
     e.billable?((e.hours||0)*(e.rate||110)).toFixed(2):'0',
     e.driveTime||0,e.crew||'',e.weather||'',(e.notes||'').replace(/\n/g,' ')
   ]);
   const csv=[headers,...rows].map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
-  a.download=filename; a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=filename;a.click();
   showToast('CSV downloaded');
 }
-
-function importCSV() { document.getElementById('importFile').click(); }
-function handleImport(e) {
-  const file=e.target.files[0]; if(!file) return;
+function importCSV(){document.getElementById('importFile').click()}
+function handleImport(e){
+  const file=e.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=async ev=>{
-    const lines=ev.target.result.split('\n').slice(1); let count=0;
+    const lines=ev.target.result.split('\n').slice(1);let count=0;
     for(const line of lines){
-      if(!line.trim()) continue;
+      if(!line.trim())continue;
       const cols=line.match(/(".*?"|[^,]+)(?=,|$)/g)?.map(c=>c.replace(/^"|"$/g,'').trim())||[];
-      if(cols.length<7) continue;
+      if(cols.length<7)continue;
       await dbPut({id:Date.now().toString()+Math.random(),startTime:'',endTime:'',
         client:cols[1],jobName:cols[2],tasks:cols[3]?cols[3].split(';').map(t=>t.trim()):[],
         hours:parseFloat(cols[4])||0,rate:parseFloat(cols[5])||110,billable:cols[6]==='Yes',
         driveTime:parseInt(cols[8])||0,crew:cols[9]||'',weather:cols[10]||'',notes:cols[11]||'',
-        created:new Date().toISOString()});
+        photos:[],created:new Date().toISOString()});
       count++;
     }
-    showToast(`Imported ${count} entries`); refreshAutocompleteLists();
+    showToast(`Imported ${count} entries`);refreshAutocompleteLists();
   };
-  reader.readAsText(file); e.target.value='';
+  reader.readAsText(file);e.target.value='';
+}
+async function clearAllData(){
+  if(!confirm('Delete ALL time log entries? Cannot be undone.'))return;
+  const entries=await dbAll();for(const e of entries)await dbDelete(e.id);
+  showToast('All data cleared');renderEntries();renderJobs();
 }
 
-async function clearAllData() {
-  if(!confirm('Delete ALL time log entries? Cannot be undone.')) return;
-  const entries=await dbAll();
-  for(const e of entries) await dbDelete(e.id);
-  showToast('All data cleared'); renderEntries(); renderJobs();
-}
-
-// ── EDIT / DELETE ──
-async function editEntry(id) {
-  const entries=await dbAll(); const e=entries.find(x=>x.id===id); if(!e) return;
-  editingId=id; editBillable=e.billable;
+// ════════ EDIT / DELETE ════════
+async function editEntry(id){
+  const entries=await dbAll();const e=entries.find(x=>x.id===id);if(!e)return;
+  editingId=id;editBillable=e.billable;
   document.getElementById('edit_client').value=e.client||'';
   document.getElementById('edit_jobName').value=e.jobName||'';
   const tasks=(e.tasks&&e.tasks.length)?e.tasks:(e.phase?[e.phase]:[]);
@@ -1106,70 +827,183 @@ async function editEntry(id) {
   document.getElementById('edit_billableToggle').className='toggle'+(editBillable?' on':'');
   document.getElementById('editModal').classList.add('open');
 }
-
-async function saveEdit() {
-  const entries=await dbAll(); const e=entries.find(x=>x.id===editingId); if(!e) return;
+async function saveEdit(){
+  const entries=await dbAll();const e=entries.find(x=>x.id===editingId);if(!e)return;
   const s=document.getElementById('edit_startTime').value;
   const en=document.getElementById('edit_endTime').value;
   let hours=e.hours;
-  if(s&&en){const h=(new Date(en)-new Date(s))/3600000; if(h>0) hours=Math.round(h*100)/100;}
+  if(s&&en){const h=(new Date(en)-new Date(s))/3600000;if(h>0)hours=Math.round(h*100)/100}
   const tasksRaw=document.getElementById('edit_tasks').value;
   const tasks=tasksRaw?tasksRaw.split(',').map(t=>t.trim()).filter(Boolean):[];
-  Object.assign(e,{
-    client:document.getElementById('edit_client').value,
-    jobName:document.getElementById('edit_jobName').value,
-    tasks,startTime:s,endTime:en,hours,
-    driveTime:parseInt(document.getElementById('edit_driveTime').value)||0,
-    rate:parseFloat(document.getElementById('edit_rate').value)||110,
-    billable:editBillable,
-    notes:document.getElementById('edit_notes').value,
-    crew:document.getElementById('edit_crew').value
+  Object.assign(e,{client:document.getElementById('edit_client').value,jobName:document.getElementById('edit_jobName').value,tasks,startTime:s,endTime:en,hours,driveTime:parseInt(document.getElementById('edit_driveTime').value)||0,rate:parseFloat(document.getElementById('edit_rate').value)||110,billable:editBillable,notes:document.getElementById('edit_notes').value,crew:document.getElementById('edit_crew').value});
+  await dbPut(e);closeModal('editModal');showToast('Entry updated');
+  renderEntries();renderJobs();refreshAutocompleteLists();
+}
+async function deleteEntry(id){if(!confirm('Delete this entry?'))return;await dbDelete(id);showToast('Entry deleted');renderEntries();renderJobs()}
+
+// ════════ CLIENT REPORT ════════
+async function populateReportFilters(){
+  const entries=await dbAll();
+  const clients=[...new Set(entries.map(e=>e.client).filter(Boolean))];
+  document.getElementById('rpt_client').innerHTML='<option value="">— Select Client —</option>'+clients.map(c=>`<option>${c}</option>`).join('');
+}
+async function populateReportJobs(){
+  const entries=await dbAll();
+  const client=document.getElementById('rpt_client').value;
+  const jobs=[...new Set(entries.filter(e=>!client||e.client===client).map(e=>e.jobName).filter(Boolean))];
+  document.getElementById('rpt_job').innerHTML='<option value="">All Jobs</option>'+jobs.map(j=>`<option>${j}</option>`).join('');
+}
+
+async function generateReport(){
+  const client=document.getElementById('rpt_client').value;
+  const job=document.getElementById('rpt_job').value;
+  const from=document.getElementById('rpt_from').value;
+  const to=document.getElementById('rpt_to').value;
+  const detail=document.getElementById('rpt_detail').value;
+  if(!client){document.getElementById('rpt_preview_card').style.display='none';return}
+  const entries=await dbAll();
+  let filtered=entries.filter(e=>e.billable);
+  if(client)filtered=filtered.filter(e=>e.client===client);
+  if(job)filtered=filtered.filter(e=>e.jobName===job);
+  if(from)filtered=filtered.filter(e=>e.startTime&&e.startTime>=from);
+  if(to)filtered=filtered.filter(e=>e.startTime&&e.startTime<=to+'T23:59');
+  filtered=filtered.sort((a,b)=>new Date(a.startTime||a.created)-new Date(b.startTime||b.created));
+  document.getElementById('rpt_preview_card').style.display=filtered.length?'block':'none';
+  if(!filtered.length)return;
+  const totalHrs=filtered.reduce((a,e)=>a+(e.hours||0),0);
+  const totalEarn=filtered.reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
+  const jobLabel=job||'All Projects';
+  const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const groups={};
+  filtered.forEach(e=>{const dk=e.startTime?fmtDate(e.startTime):'No Date';if(!groups[dk])groups[dk]=[];groups[dk].push(e)});
+
+  let html=`<div style="border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px;">
+    <div style="font-family:var(--font-display);font-size:24px;letter-spacing:2px;color:var(--gold-bright)">THE SWEDISH HAMMER</div>
+    <div style="font-family:var(--font-cond);font-size:11px;letter-spacing:2px;color:var(--gray);margin-top:2px">LABOR TIME SUMMARY</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;font-family:var(--font-cond);font-size:13px;">
+    <div><span style="color:var(--gray)">CLIENT: </span><span style="color:var(--white);font-weight:600">${client}</span></div>
+    <div><span style="color:var(--gray)">DATE: </span><span style="color:var(--white)">${today}</span></div>
+    <div style="grid-column:1/-1"><span style="color:var(--gray)">PROJECT: </span><span style="color:var(--white);font-weight:600">${jobLabel}</span></div>
+  </div>`;
+
+  Object.entries(groups).forEach(([date,grp])=>{
+    const dayHrs=grp.reduce((a,e)=>a+(e.hours||0),0);
+    html+=`<div style="margin-bottom:12px;">
+      <div style="font-family:var(--font-cond);font-size:12px;letter-spacing:1.5px;color:var(--gold);border-bottom:1px solid var(--card-border);padding-bottom:4px;margin-bottom:8px;display:flex;justify-content:space-between;">
+        <span>${date}</span><span>${dayHrs.toFixed(2)} hrs</span></div>`;
+    grp.forEach(e=>{
+      const tasks=(e.tasks&&e.tasks.length)?e.tasks.join(' · '):(e.phase||'General Labor');
+      const hrs=(e.hours||0).toFixed(2);
+      html+=`<div style="display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid rgba(30,58,95,0.5);">
+        <span style="flex:1;font-size:13px;color:var(--gray-light)">${tasks}</span>
+        <span style="font-family:var(--font-cond);font-size:13px;color:var(--white);margin-left:12px;white-space:nowrap">${hrs} hrs`;
+      if(detail==='lineitem')html+=` @ $${e.rate||110}/hr = <span style="color:var(--gold)">$${((e.hours||0)*(e.rate||110)).toFixed(2)}</span>`;
+      html+=`</span></div>`;
+      if(e.notes)html+=`<div style="font-size:11px;color:var(--gray);padding:2px 0 6px;font-style:italic">↳ ${e.notes}</div>`;
+      if(rptPhoto&&e.photos&&e.photos.length){
+        html+=`<div style="display:flex;flex-wrap:wrap;gap:6px;margin:6px 0">${e.photos.map(p=>`<img src="${p}" style="width:80px;height:80px;object-fit:cover;border-radius:4px;border:1px solid var(--card-border)">`).join('')}</div>`;
+      }
+    });
+    html+=`</div>`;
   });
-  await dbPut(e); closeModal('editModal'); showToast('Entry updated');
-  renderEntries(); renderJobs(); refreshAutocompleteLists();
+
+  html+=`<div style="border-top:2px solid var(--gold);padding-top:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
+    <span style="font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1px;color:var(--white)">TOTAL HOURS</span>
+    <span style="font-family:var(--font-display);font-size:24px;color:var(--gold-bright)">${totalHrs.toFixed(2)} hrs</span>
+  </div>`;
+  if(detail==='total'||detail==='lineitem'){
+    html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+      <span style="font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1px;color:var(--white)">TOTAL AMOUNT</span>
+      <span style="font-family:var(--font-display);font-size:24px;color:var(--gold-bright)">$${totalEarn.toFixed(2)}</span>
+    </div>`;
+  }
+
+  if(rptSig){
+    html+=`<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--card-border);">
+      <div style="font-family:var(--font-cond);font-size:11px;letter-spacing:2px;color:var(--gray);margin-bottom:8px">CLIENT APPROVAL</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="border-bottom:1px solid var(--gray-light);height:48px;margin-bottom:4px;"></div>
+          <div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">SIGNATURE</div>
+        </div>
+        <div>
+          <div style="border-bottom:1px solid var(--gray-light);height:48px;margin-bottom:4px;"></div>
+          <div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">DATE</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <div style="border-bottom:1px solid var(--gray-light);height:32px;margin-bottom:4px;"></div>
+        <div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">PRINTED NAME</div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--gray);line-height:1.5">By signing above, client acknowledges and approves the labor hours listed in this summary.</div>
+    </div>`;
+  }
+
+  html+=`<div style="margin-top:16px;font-family:var(--font-cond);font-size:11px;color:var(--gray);text-align:center;letter-spacing:1px;">Swedish Hammer LLC · Lafayette, CO · 720-580-3827 · service@swedishhammer.com</div>`;
+  document.getElementById('rpt_preview').innerHTML=html;
 }
 
-async function deleteEntry(id) {
-  if(!confirm('Delete this entry?')) return;
-  await dbDelete(id); showToast('Entry deleted'); renderEntries(); renderJobs();
+function copyReport(){
+  const tmp=document.createElement('div');tmp.innerHTML=document.getElementById('rpt_preview').innerHTML;
+  navigator.clipboard.writeText(tmp.innerText).then(()=>showToast('Copied to clipboard'));
 }
 
-// ── UI ──
-function switchTab(tab) {
+function printReport(){
+  const client=document.getElementById('rpt_client').value||'Client';
+  const previewHTML=document.getElementById('rpt_preview').innerHTML;
+  const win=window.open('','_blank','width=800,height=900');
+  win.document.write(`<!DOCTYPE html><html><head>
+    <meta charset="UTF-8"><title>Swedish Hammer — Labor Summary — ${client}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root{--navy:#0D1B2A;--gold:#C9A84C;--gold-bright:#C9A84C;--white:#0D1B2A;--gray:#555;--gray-light:#333;--card-border:#ddd;--font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;--font-cond:'Barlow Condensed',sans-serif}
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{background:white;color:#0D1B2A;font-family:'Barlow',sans-serif;padding:40px;max-width:700px;margin:0 auto}
+      @media print{body{padding:20px}}
+    </style>
+  </head><body>${previewHTML}<script>window.onload=()=>{window.print()}<\/script></body></html>`);
+  win.document.close();
+}
+
+function emailReport(){
+  const client=document.getElementById('rpt_client').value||'Client';
+  const job=document.getElementById('rpt_job').value||'your project';
+  const tmp=document.createElement('div');tmp.innerHTML=document.getElementById('rpt_preview').innerHTML;
+  const body=encodeURIComponent(tmp.innerText);
+  const subject=encodeURIComponent(`Swedish Hammer — Labor Summary: ${job}`);
+  window.location.href=`mailto:?to=&subject=${subject}&body=${body}`;
+}
+
+// ════════ UI ════════
+function switchTab(tab){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const tabs=['log','entries','jobs','export'];
+  const tabs=['log','entries','jobs','export','report'];
   document.querySelectorAll('.tab')[tabs.indexOf(tab)].classList.add('active');
   document.getElementById('view-'+tab).classList.add('active');
-  if(tab==='entries') renderEntries();
-  if(tab==='jobs') renderJobs();
-  if(tab==='export'){populateExportFilters();generateExport();}
+  if(tab==='entries')renderEntries();
+  if(tab==='jobs')renderJobs();
+  if(tab==='export'){populateExportFilters();generateExport()}
+  if(tab==='report')populateReportFilters();
 }
-function setFilter(filter,el){
-  currentFilter=filter;
-  document.querySelectorAll('#entryFilters .filter-chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active'); renderEntries();
-}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
+function setFilter(filter,el){currentFilter=filter;document.querySelectorAll('#entryFilters .filter-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderEntries()}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
-// ── SERVICE WORKER ──
+// ════════ SERVICE WORKER ════════
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw-timelog.js')
-    .then(reg=>console.log('SW registered:',reg.scope))
+    .then(reg=>console.log('SW:',reg.scope))
     .catch(err=>console.warn('SW failed:',err));
 }
 
-// ── INIT ──
+// ════════ INIT ════════
 (async()=>{
   await openDB();
   document.getElementById('startTime').value=toLocalISO(new Date());
   document.getElementById('headerDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-  renderTaskUI();
+  renderTaskUI();renderPhotoStrip();
   await refreshAutocompleteLists();
 })();
 </script>
