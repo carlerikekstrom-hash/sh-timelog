@@ -37,7 +37,6 @@
   textarea{resize:vertical;min-height:72px}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-  /* JOB BANNER */
   .job-banner{background:rgba(201,168,76,0.1);border:1px solid var(--gold-dim);border-radius:6px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}
   .job-banner-label{font-family:var(--font-cond);font-size:11px;letter-spacing:1px;color:var(--gold)}
   .job-banner-vals{display:flex;gap:16px;align-items:center}
@@ -47,7 +46,6 @@
   .budget-bar-wrap{margin-top:4px;height:4px;background:var(--card-border);border-radius:2px;overflow:hidden;width:80px}
   .budget-bar-fill{height:100%;border-radius:2px;transition:width .4s}
 
-  /* TASK PICKER */
   .task-picker{background:var(--input-bg);border:1px solid var(--card-border);border-radius:6px;padding:10px}
   .task-picker:focus-within{border-color:var(--gold)}
   .task-selected{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;min-height:10px}
@@ -62,20 +60,17 @@
   .task-preset:active{background:var(--navy-mid);color:var(--gold)}
   .task-preset.used{opacity:.35;cursor:default}
 
-  /* PHOTO */
   .photo-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
   .photo-thumb{width:64px;height:64px;object-fit:cover;border-radius:5px;border:1px solid var(--card-border);cursor:pointer}
   .photo-add-btn{width:64px;height:64px;border-radius:5px;border:2px dashed var(--card-border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:var(--gray);background:var(--input-bg);transition:border-color .2s}
   .photo-add-btn:active{border-color:var(--gold)}
 
-  /* TIMER */
   .timer-block{background:var(--input-bg);border:1px solid var(--card-border);border-radius:8px;padding:14px;margin-bottom:14px;text-align:center}
   .timer-display{font-family:var(--font-display);font-size:48px;letter-spacing:4px;color:var(--gold-bright);line-height:1;margin-bottom:10px}
   .timer-display.running{color:#4ade80;animation:pulse 2s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
   .timer-btns{display:flex;gap:10px;justify-content:center}
 
-  /* TOGGLE */
   .toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
   .toggle{width:46px;height:26px;background:var(--card-border);border-radius:13px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0}
   .toggle.on{background:var(--gold)}
@@ -83,7 +78,6 @@
   .toggle.on::after{transform:translateX(20px)}
   .toggle-label{font-size:14px;color:var(--gray-light)}
 
-  /* BUTTONS */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:6px;font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:none;transition:all .2s}
   .btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:active{background:var(--gold-bright)}
   .btn-navy{background:var(--navy-mid);color:var(--white);border:1px solid var(--card-border)}
@@ -93,7 +87,6 @@
   .btn-full{width:100%}.btn-sm{padding:7px 12px;font-size:12px}
   .btn:disabled{opacity:.4;cursor:not-allowed}
 
-  /* ENTRIES */
   .entry-card{background:var(--card);border:1px solid var(--card-border);border-radius:8px;padding:14px;margin-bottom:10px}
   .entry-card.billable{border-left:3px solid var(--gold)}
   .entry-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
@@ -106,13 +99,11 @@
   .entry-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
   .drive-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(201,168,76,0.15);color:var(--gold);font-size:11px;font-family:var(--font-cond);padding:2px 7px;border-radius:3px}
 
-  /* STATS */
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
   .stat-box{background:var(--input-bg);border:1px solid var(--card-border);border-radius:7px;padding:14px 12px;text-align:center}
   .stat-val{font-family:var(--font-display);font-size:30px;color:var(--gold-bright);line-height:1}
   .stat-lbl{font-family:var(--font-cond);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-top:4px}
 
-  /* JOB ROWS */
   .job-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--card-border)}
   .job-row:last-child{border-bottom:none}
   .job-name{font-weight:600;font-size:14px}.job-client{font-size:12px;color:var(--gray);margin-top:2px}
@@ -122,23 +113,19 @@
   .progress-fill{height:100%;border-radius:3px;transition:width .5s ease}
   .progress-over{background:var(--red)!important}
 
-  /* FILTERS */
   .filter-row{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
   .filter-chip{flex-shrink:0;padding:5px 12px;border-radius:20px;font-family:var(--font-cond);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:1px solid var(--card-border);color:var(--gray);background:var(--card);transition:all .2s}
   .filter-chip.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
   .date-header{font-family:var(--font-cond);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--card-border)}
   .export-preview{background:var(--input-bg);border:1px solid var(--card-border);border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:var(--gray-light);white-space:pre-wrap;max-height:200px;overflow-y:auto;margin-bottom:12px}
 
-  /* SIGNATURE */
   .sig-canvas{width:100%;height:120px;background:white;border-radius:5px;border:1px solid var(--card-border);cursor:crosshair;touch-action:none}
 
-  /* MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:flex-end;justify-content:center}
   .modal-overlay.open{display:flex}
   .modal{background:var(--card);border:1px solid var(--card-border);border-radius:16px 16px 0 0;padding:20px 16px;width:100%;max-height:92vh;overflow-y:auto}
   .modal-title{font-family:var(--font-display);font-size:22px;letter-spacing:2px;color:var(--gold-bright);margin-bottom:16px}
 
-  /* PHOTO MODAL */
   .photo-modal-img{width:100%;border-radius:8px;max-height:60vh;object-fit:contain}
 
   .empty-state{text-align:center;padding:40px 20px;color:var(--gray)}
@@ -175,7 +162,6 @@
 
 <!-- TAB 1: LOG TIME -->
 <div class="view active" id="view-log">
-
   <div class="card">
     <div class="card-title">⏱ Live Timer</div>
     <div class="timer-block">
@@ -202,7 +188,6 @@
       <datalist id="jobList"></datalist>
     </div>
 
-    <!-- RUNNING JOB BANNER -->
     <div class="job-banner" id="jobBanner" style="display:none">
       <div>
         <div class="job-banner-label">THIS JOB SO FAR</div>
@@ -240,9 +225,13 @@
 
   <div class="card">
     <div class="card-title">🕐 Time & Billing</div>
+    <div class="field">
+      <label>Work Date <span style="color:var(--gold-dim);font-size:10px;letter-spacing:0">(required for manual entries)</span></label>
+      <input type="date" id="workDate">
+    </div>
     <div class="row2">
-      <div class="field"><label>Start Time</label><input type="datetime-local" id="startTime"></div>
-      <div class="field"><label>End Time</label><input type="datetime-local" id="endTime"></div>
+      <div class="field"><label>Start Time <span style="color:var(--gold-dim);font-size:10px;letter-spacing:0">(optional)</span></label><input type="datetime-local" id="startTime"></div>
+      <div class="field"><label>End Time <span style="color:var(--gold-dim);font-size:10px;letter-spacing:0">(optional)</span></label><input type="datetime-local" id="endTime"></div>
     </div>
     <div style="background:var(--input-bg);border:1px solid var(--card-border);border-radius:6px;padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
       <span style="font-family:var(--font-cond);font-size:12px;letter-spacing:1px;color:var(--gray)">CALCULATED HOURS</span>
@@ -376,6 +365,7 @@
     <div class="field"><label>Client</label><input type="text" id="edit_client"></div>
     <div class="field"><label>Job Name</label><input type="text" id="edit_jobName"></div>
     <div class="field"><label>Tasks (comma-separated)</label><input type="text" id="edit_tasks" placeholder="Demo, Framing, Cleanup"></div>
+    <div class="field"><label>Work Date</label><input type="date" id="edit_workDate"></div>
     <div class="row2">
       <div class="field"><label>Start</label><input type="datetime-local" id="edit_startTime"></div>
       <div class="field"><label>End</label><input type="datetime-local" id="edit_endTime"></div>
@@ -454,10 +444,18 @@ function dbGetBudget(key){return new Promise((res,rej)=>{const tx=db.transaction
 function dbSetBudget(key,hours){return new Promise((res,rej)=>{const tx=db.transaction(BUDGET_STORE,'readwrite');const req=tx.objectStore(BUDGET_STORE).put({key,hours});req.onsuccess=()=>res();req.onerror=()=>rej(req.error)})}
 function dbDeleteBudget(key){return new Promise((res,rej)=>{const tx=db.transaction(BUDGET_STORE,'readwrite');const req=tx.objectStore(BUDGET_STORE).delete(key);req.onsuccess=()=>res();req.onerror=()=>rej(req.error)})}
 
+// ════════ HELPER: resolve the best date string (YYYY-MM-DD) for an entry ════════
+function entryDate(e){
+  if(e.workDate) return e.workDate;
+  if(e.startTime) return e.startTime.slice(0,10);
+  if(e.created) return e.created.slice(0,10);
+  return '';
+}
+
 // ════════ TASK PRESETS ════════
 const PRESET_TASKS=['Demo / Tearout','Site Prep','Framing','Blocking / Backing','Rough Plumbing','Rough Electrical','Drywall','Trim / Millwork','Paint / Stain','Flooring','Tile','Hardware / Fixtures','Doors / Windows','Deck / Fence','Roofing','Concrete / Masonry','Material Run','Cleanup','Punch List','Client Meeting','Assessment / Walkthrough','Admin / Estimating','Site Protection'];
 let selectedTasks=[];
-let pendingPhotos=[]; // {dataUrl, name}
+let pendingPhotos=[];
 
 function renderTaskUI(){
   document.getElementById('taskSelected').innerHTML=selectedTasks.map((t,i)=>`<span class="task-tag">${t}<span class="remove" onclick="removeTask(${i})">×</span></span>`).join('');
@@ -491,7 +489,18 @@ function viewPhoto(src){document.getElementById('photoModalImg').src=src;documen
 let timerInterval=null,timerStart=null,timerElapsed=0;
 function fmtTimer(ms){const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;return`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sc).padStart(2,'0')}`}
 function toLocalISO(d){const pad=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`}
-function startTimer(){if(timerInterval)return;timerStart=Date.now()-timerElapsed;if(!document.getElementById('startTime').value)document.getElementById('startTime').value=toLocalISO(new Date(timerStart+timerElapsed));timerInterval=setInterval(()=>{timerElapsed=Date.now()-timerStart;document.getElementById('timerDisplay').textContent=fmtTimer(timerElapsed);document.getElementById('timerDisplay').className='timer-display running';document.getElementById('timerStatus').textContent='RUNNING';updateCalcHours()},1000);document.getElementById('timerStartBtn').disabled=true;document.getElementById('timerStopBtn').disabled=false}
+function toLocalDate(d){const pad=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
+
+function startTimer(){
+  if(timerInterval)return;
+  timerStart=Date.now()-timerElapsed;
+  const now=new Date(timerStart+timerElapsed);
+  if(!document.getElementById('startTime').value) document.getElementById('startTime').value=toLocalISO(now);
+  if(!document.getElementById('workDate').value) document.getElementById('workDate').value=toLocalDate(now);
+  timerInterval=setInterval(()=>{timerElapsed=Date.now()-timerStart;document.getElementById('timerDisplay').textContent=fmtTimer(timerElapsed);document.getElementById('timerDisplay').className='timer-display running';document.getElementById('timerStatus').textContent='RUNNING';updateCalcHours()},1000);
+  document.getElementById('timerStartBtn').disabled=true;
+  document.getElementById('timerStopBtn').disabled=false;
+}
 function stopTimer(){if(!timerInterval)return;clearInterval(timerInterval);timerInterval=null;document.getElementById('endTime').value=toLocalISO(new Date());document.getElementById('timerDisplay').className='timer-display';document.getElementById('timerStatus').textContent='STOPPED — '+fmtTimer(timerElapsed);document.getElementById('timerStartBtn').disabled=false;document.getElementById('timerStopBtn').disabled=true;updateCalcHours()}
 function resetTimer(){clearInterval(timerInterval);timerInterval=null;timerStart=null;timerElapsed=0;document.getElementById('timerDisplay').textContent='00:00:00';document.getElementById('timerDisplay').className='timer-display';document.getElementById('timerStatus').textContent='READY';document.getElementById('timerStartBtn').disabled=false;document.getElementById('timerStopBtn').disabled=true}
 
@@ -528,7 +537,14 @@ let isBillable=true,editBillable=true,editingId=null,currentFilter='all';
 let rptSig=false,rptPhoto=false;
 let budgetEditKey=null;
 
-document.getElementById('startTime').addEventListener('change',updateCalcHours);
+document.getElementById('startTime').addEventListener('change',()=>{
+  // Auto-fill workDate from startTime if not already set
+  const st=document.getElementById('startTime').value;
+  if(st&&!document.getElementById('workDate').value){
+    document.getElementById('workDate').value=st.slice(0,10);
+  }
+  updateCalcHours();
+});
 document.getElementById('endTime').addEventListener('change',updateCalcHours);
 document.getElementById('rate').addEventListener('input',updateCalcHours);
 
@@ -558,9 +574,12 @@ async function saveEntry(){
   const startTime=document.getElementById('startTime').value;
   const endTime=document.getElementById('endTime').value;
   const manualHours=parseFloat(document.getElementById('manualHours').value)||0;
+  const workDateInput=document.getElementById('workDate').value;
   if(!client){showToast('Enter a client name');return}
   if(!jobName){showToast('Enter a job name');return}
   if(!startTime&&!manualHours){showToast('Set a start time or enter hours manually');return}
+  // Require a work date for manual entries
+  if(!startTime&&!workDateInput){showToast('Enter a work date for manual entries');return}
   let hours=0;
   if(startTime&&endTime){
     hours=(new Date(endTime)-new Date(startTime))/3600000;
@@ -570,9 +589,13 @@ async function saveEntry(){
   } else if(timerElapsed>0){
     hours=timerElapsed/3600000;
   }
+  // Resolve workDate: explicit input > derived from startTime > today
+  const resolvedWorkDate=workDateInput||(startTime?startTime.slice(0,10):toLocalDate(new Date()));
   const entry={
     id:Date.now().toString(),client,jobName,
-    tasks:[...selectedTasks],startTime,endTime,
+    tasks:[...selectedTasks],
+    workDate:resolvedWorkDate,
+    startTime,endTime,
     hours:Math.round(hours*100)/100,
     driveTime:parseInt(document.getElementById('driveTime').value)||0,
     rate:parseFloat(document.getElementById('rate').value)||110,
@@ -589,7 +612,7 @@ async function saveEntry(){
 }
 
 function resetForm(){
-  ['client','jobName','notes','crew','weather','manualHours'].forEach(id=>document.getElementById(id).value='');
+  ['client','jobName','notes','crew','weather','manualHours','workDate'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('startTime').value='';document.getElementById('endTime').value='';
   document.getElementById('driveTime').value='0';document.getElementById('rate').value='110';
   selectedTasks=[];pendingPhotos=[];renderTaskUI();renderPhotoStrip();
@@ -598,7 +621,6 @@ function resetForm(){
   document.getElementById('jobBanner').style.display='none';
 }
 
-// Clone entry into form
 function cloneEntry(e){
   document.getElementById('client').value=e.client||'';
   document.getElementById('jobName').value=e.jobName||'';
@@ -606,9 +628,9 @@ function cloneEntry(e){
   renderTaskUI();
   document.getElementById('driveTime').value=e.driveTime||0;
   document.getElementById('rate').value=e.rate||110;
+  document.getElementById('workDate').value=toLocalDate(new Date());
   isBillable=e.billable!==false;
   document.getElementById('billableToggle').className='toggle'+(isBillable?' on':'');
-  // Set start to now
   document.getElementById('startTime').value=toLocalISO(new Date());
   document.getElementById('endTime').value='';
   document.getElementById('calcHours').textContent='—';
@@ -628,18 +650,18 @@ async function refreshAutocompleteLists(){
 }
 
 // ════════ RENDER ENTRIES ════════
-function fmtDate(dtStr){if(!dtStr)return'—';return new Date(dtStr).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
+function fmtDate(dtStr){if(!dtStr)return'—';return new Date(dtStr+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
 function fmtTime(dtStr){if(!dtStr)return'—';return new Date(dtStr).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})}
 function fmtMoney(n){return'$'+Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
 
 function getFilteredEntries(entries){
   const now=new Date();const todayStr=now.toDateString();let filtered=entries;
-  if(currentFilter==='today')filtered=entries.filter(e=>e.startTime&&new Date(e.startTime).toDateString()===todayStr);
-  else if(currentFilter==='week'){const wa=new Date(now);wa.setDate(now.getDate()-7);filtered=entries.filter(e=>e.startTime&&new Date(e.startTime)>=wa)}
-  else if(currentFilter==='month')filtered=entries.filter(e=>e.startTime&&new Date(e.startTime).getMonth()===now.getMonth()&&new Date(e.startTime).getFullYear()===now.getFullYear());
+  if(currentFilter==='today')filtered=entries.filter(e=>{const d=entryDate(e);return d&&new Date(d+'T12:00:00').toDateString()===todayStr});
+  else if(currentFilter==='week'){const wa=new Date(now);wa.setDate(now.getDate()-7);filtered=entries.filter(e=>{const d=entryDate(e);return d&&new Date(d+'T12:00:00')>=wa})}
+  else if(currentFilter==='month')filtered=entries.filter(e=>{const d=entryDate(e);if(!d)return false;const dt=new Date(d+'T12:00:00');return dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear()});
   const search=document.getElementById('searchEntries')?.value?.toLowerCase()||'';
   if(search)filtered=filtered.filter(e=>(e.client||'').toLowerCase().includes(search)||(e.jobName||'').toLowerCase().includes(search)||(e.tasks||[]).join(' ').toLowerCase().includes(search)||(e.notes||'').toLowerCase().includes(search));
-  return filtered.sort((a,b)=>new Date(b.startTime||b.created)-new Date(a.startTime||a.created));
+  return filtered.sort((a,b)=>{const da=entryDate(a)||'';const db=entryDate(b)||'';return da<db?1:da>db?-1:0});
 }
 
 async function renderEntries(){
@@ -647,7 +669,7 @@ async function renderEntries(){
   const container=document.getElementById('entriesList');
   if(!entries.length){container.innerHTML=`<div class="empty-state"><div class="empty-icon">🔨</div><div class="empty-text">No entries found</div></div>`;return}
   const groups={};
-  entries.forEach(e=>{const dk=e.startTime?fmtDate(e.startTime):'No Date';if(!groups[dk])groups[dk]=[];groups[dk].push(e)});
+  entries.forEach(e=>{const dk=entryDate(e)?fmtDate(entryDate(e)):'No Date';if(!groups[dk])groups[dk]=[];groups[dk].push(e)});
   container.innerHTML=Object.entries(groups).map(([date,grp])=>{
     const dayHrs=grp.reduce((a,e)=>a+(e.hours||0),0);
     const dayEarn=grp.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
@@ -661,13 +683,14 @@ function entryHTML(e){
   const tasks=(e.tasks&&e.tasks.length)?e.tasks:(e.phase?[e.phase]:[]);
   const taskBadges=tasks.length?`<div class="entry-tasks">${tasks.map(t=>`<span class="entry-task-badge">${t}</span>`).join('')}</div>`:'';
   const photos=(e.photos&&e.photos.length)?`<div class="photo-strip" style="margin-top:8px">${e.photos.map(p=>`<img class="photo-thumb" src="${p}" onclick="viewPhoto('${p}')">`).join('')}</div>`:'';
+  const timeStr=e.startTime?`${fmtTime(e.startTime)} → ${fmtTime(e.endTime)}`:'Manual entry';
   return`<div class="entry-card ${e.billable?'billable':''}">
     <div class="entry-header">
       <div><div class="entry-client">${e.client}</div><div class="entry-meta">${e.jobName}</div></div>
       <div style="text-align:right"><div class="entry-hours">${(e.hours||0).toFixed(2)}h</div><div style="font-size:12px;color:var(--gold-dim)">${earn}</div></div>
     </div>
     ${taskBadges}
-    <div style="margin-top:4px">${driveStr} <span style="font-size:12px;color:var(--gray)">${fmtTime(e.startTime)} → ${fmtTime(e.endTime)}</span></div>
+    <div style="margin-top:4px">${driveStr} <span style="font-size:12px;color:var(--gray)">${timeStr}</span></div>
     ${e.notes?`<div class="entry-notes">${e.notes}</div>`:''}
     ${photos}
     ${e.crew?`<div style="font-size:12px;color:var(--gray);margin-top:4px">👷 ${e.crew}</div>`:''}
@@ -700,8 +723,6 @@ async function renderJobs(){
     if(e.billable)jobs[k].earn+=(e.hours||0)*(e.rate||110);
   });
   const sorted=Object.values(jobs).sort((a,b)=>b.hours-a.hours);
-
-  // load budgets
   const jobsWithBudgets=await Promise.all(sorted.map(async j=>{j.budget=await dbGetBudget(j.key);return j}));
 
   document.getElementById('jobsList').innerHTML=jobsWithBudgets.length?`
@@ -763,16 +784,16 @@ async function generateExport(){
   const to=document.getElementById('exportTo').value;
   if(client)filtered=filtered.filter(e=>e.client===client);
   if(job)filtered=filtered.filter(e=>e.jobName===job);
-  if(from)filtered=filtered.filter(e=>e.startTime&&e.startTime>=from);
-  if(to)filtered=filtered.filter(e=>e.startTime&&e.startTime<=to+'T23:59');
-  filtered=filtered.sort((a,b)=>new Date(a.startTime||a.created)-new Date(b.startTime||b.created));
+  if(from)filtered=filtered.filter(e=>{const d=entryDate(e);return!d||d>=from});
+  if(to)filtered=filtered.filter(e=>{const d=entryDate(e);return!d||d<=to});
+  filtered=filtered.sort((a,b)=>{const da=entryDate(a)||'';const db=entryDate(b)||'';return da<db?-1:da>db?1:0});
   if(!filtered.length){document.getElementById('exportPreview').textContent='No entries match.';document.getElementById('exportSummaryLine').textContent='';return}
   const totalHrs=filtered.reduce((a,e)=>a+(e.hours||0),0);
   const billHrs=filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0),0);
   const totalEarn=filtered.filter(e=>e.billable).reduce((a,e)=>a+(e.hours||0)*(e.rate||110),0);
   document.getElementById('exportSummaryLine').textContent=`${filtered.length} entries · ${totalHrs.toFixed(2)}h · ${billHrs.toFixed(2)}h billable · ${fmtMoney(totalEarn)}`;
   const lines=filtered.map(e=>{
-    const d=e.startTime?fmtDate(e.startTime):'No Date';
+    const d=entryDate(e)?fmtDate(entryDate(e)):'No Date';
     const tasks=(e.tasks&&e.tasks.length)?e.tasks.join(' · '):(e.phase||'—');
     const earn=e.billable?fmtMoney((e.hours||0)*(e.rate||110)):'Non-billable';
     return`${d} | ${tasks} | ${(e.hours||0).toFixed(2)}h @ $${e.rate||110}/hr = ${earn}${e.notes?'\n  Notes: '+e.notes:''}`;
@@ -792,9 +813,9 @@ async function exportCSV(){
 }
 async function exportAllCSV(){downloadCSV(await dbAll(),'sh-timelog-all.csv')}
 function downloadCSV(entries,filename){
-  const headers=['Date','Client','Job','Tasks','Hours','Rate','Billable','Earn','DriveMin','Crew','Weather','Notes'];
+  const headers=['WorkDate','Client','Job','Tasks','Hours','Rate','Billable','Earn','DriveMin','Crew','Weather','Notes'];
   const rows=entries.map(e=>[
-    e.startTime?fmtDate(e.startTime):'',e.client,e.jobName,
+    entryDate(e)||'',e.client,e.jobName,
     (e.tasks&&e.tasks.length)?e.tasks.join('; '):(e.phase||''),
     (e.hours||0).toFixed(2),e.rate||110,e.billable?'Yes':'No',
     e.billable?((e.hours||0)*(e.rate||110)).toFixed(2):'0',
@@ -814,7 +835,9 @@ function handleImport(e){
       if(!line.trim())continue;
       const cols=line.match(/(".*?"|[^,]+)(?=,|$)/g)?.map(c=>c.replace(/^"|"$/g,'').trim())||[];
       if(cols.length<7)continue;
-      await dbPut({id:Date.now().toString()+Math.random(),startTime:'',endTime:'',
+      const workDate=cols[0]||'';
+      await dbPut({id:Date.now().toString()+Math.random(),
+        workDate,startTime:'',endTime:'',
         client:cols[1],jobName:cols[2],tasks:cols[3]?cols[3].split(';').map(t=>t.trim()):[],
         hours:parseFloat(cols[4])||0,rate:parseFloat(cols[5])||110,billable:cols[6]==='Yes',
         driveTime:parseInt(cols[8])||0,crew:cols[9]||'',weather:cols[10]||'',notes:cols[11]||'',
@@ -839,6 +862,7 @@ async function editEntry(id){
   document.getElementById('edit_jobName').value=e.jobName||'';
   const tasks=(e.tasks&&e.tasks.length)?e.tasks:(e.phase?[e.phase]:[]);
   document.getElementById('edit_tasks').value=tasks.join(', ');
+  document.getElementById('edit_workDate').value=entryDate(e)||'';
   document.getElementById('edit_startTime').value=e.startTime||'';
   document.getElementById('edit_endTime').value=e.endTime||'';
   document.getElementById('edit_driveTime').value=e.driveTime||0;
@@ -852,11 +876,22 @@ async function saveEdit(){
   const entries=await dbAll();const e=entries.find(x=>x.id===editingId);if(!e)return;
   const s=document.getElementById('edit_startTime').value;
   const en=document.getElementById('edit_endTime').value;
+  const wd=document.getElementById('edit_workDate').value;
   let hours=e.hours;
   if(s&&en){const h=(new Date(en)-new Date(s))/3600000;if(h>0)hours=Math.round(h*100)/100}
   const tasksRaw=document.getElementById('edit_tasks').value;
   const tasks=tasksRaw?tasksRaw.split(',').map(t=>t.trim()).filter(Boolean):[];
-  Object.assign(e,{client:document.getElementById('edit_client').value,jobName:document.getElementById('edit_jobName').value,tasks,startTime:s,endTime:en,hours,driveTime:parseInt(document.getElementById('edit_driveTime').value)||0,rate:parseFloat(document.getElementById('edit_rate').value)||110,billable:editBillable,notes:document.getElementById('edit_notes').value,crew:document.getElementById('edit_crew').value});
+  const resolvedWorkDate=wd||(s?s.slice(0,10):entryDate(e));
+  Object.assign(e,{
+    client:document.getElementById('edit_client').value,
+    jobName:document.getElementById('edit_jobName').value,
+    tasks,workDate:resolvedWorkDate,startTime:s,endTime:en,hours,
+    driveTime:parseInt(document.getElementById('edit_driveTime').value)||0,
+    rate:parseFloat(document.getElementById('edit_rate').value)||110,
+    billable:editBillable,
+    notes:document.getElementById('edit_notes').value,
+    crew:document.getElementById('edit_crew').value
+  });
   await dbPut(e);closeModal('editModal');showToast('Entry updated');
   renderEntries();renderJobs();refreshAutocompleteLists();
 }
@@ -868,11 +903,22 @@ async function populateReportFilters(){
   const clients=[...new Set(entries.map(e=>e.client).filter(Boolean))];
   document.getElementById('rpt_client').innerHTML='<option value="">— Select Client —</option>'+clients.map(c=>`<option>${c}</option>`).join('');
 }
+
 async function populateReportJobs(){
   const entries=await dbAll();
   const client=document.getElementById('rpt_client').value;
-  const jobs=[...new Set(entries.filter(e=>!client||e.client===client).map(e=>e.jobName).filter(Boolean))];
+  const clientEntries=entries.filter(e=>!client||e.client===client);
+  const jobs=[...new Set(clientEntries.map(e=>e.jobName).filter(Boolean))];
   document.getElementById('rpt_job').innerHTML='<option value="">All Jobs</option>'+jobs.map(j=>`<option>${j}</option>`).join('');
+  // Auto-set date range to span all entries for this client (only if fields are blank)
+  const dated=clientEntries.filter(e=>entryDate(e));
+  if(dated.length){
+    const dates=dated.map(e=>entryDate(e)).sort();
+    if(!document.getElementById('rpt_from').value)
+      document.getElementById('rpt_from').value=dates[0];
+    if(!document.getElementById('rpt_to').value)
+      document.getElementById('rpt_to').value=dates[dates.length-1];
+  }
 }
 
 async function generateReport(){
@@ -886,9 +932,10 @@ async function generateReport(){
   let filtered=entries.filter(e=>e.billable);
   if(client)filtered=filtered.filter(e=>e.client===client);
   if(job)filtered=filtered.filter(e=>e.jobName===job);
-  if(from)filtered=filtered.filter(e=>e.startTime&&e.startTime>=from);
-  if(to)filtered=filtered.filter(e=>e.startTime&&e.startTime<=to+'T23:59');
-  filtered=filtered.sort((a,b)=>new Date(a.startTime||a.created)-new Date(b.startTime||b.created));
+  // Date filter: entries with no date pass through; entries with a date must be in range
+  if(from)filtered=filtered.filter(e=>{const d=entryDate(e);return!d||d>=from});
+  if(to)filtered=filtered.filter(e=>{const d=entryDate(e);return!d||d<=to});
+  filtered=filtered.sort((a,b)=>{const da=entryDate(a)||'';const db=entryDate(b)||'';return da<db?-1:da>db?1:0});
   document.getElementById('rpt_preview_card').style.display=filtered.length?'block':'none';
   if(!filtered.length)return;
   const totalHrs=filtered.reduce((a,e)=>a+(e.hours||0),0);
@@ -896,7 +943,11 @@ async function generateReport(){
   const jobLabel=job||'All Projects';
   const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
   const groups={};
-  filtered.forEach(e=>{const dk=e.startTime?fmtDate(e.startTime):'No Date';if(!groups[dk])groups[dk]=[];groups[dk].push(e)});
+  filtered.forEach(e=>{
+    const dk=entryDate(e)?fmtDate(entryDate(e)):'No Date';
+    if(!groups[dk])groups[dk]=[];
+    groups[dk].push(e);
+  });
 
   let html=`<div style="border-bottom:2px solid var(--gold);padding-bottom:12px;margin-bottom:16px;">
     <div style="font-family:var(--font-display);font-size:24px;letter-spacing:2px;color:var(--gold-bright)">THE SWEDISH HAMMER</div>
@@ -931,7 +982,7 @@ async function generateReport(){
 
   html+=`<div style="border-top:2px solid var(--gold);padding-top:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;">
     <span style="font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1px;color:var(--white)">TOTAL HOURS</span>
-    <span style="font-family:var(--font-display);font-size:24px;color:var(--gold-bright)">${totalHrs.toFixed(2)} hrs</span>
+    <span style="font-family:var(--font-display);font-size:24px;color:var(--gold-bright)">${totalHrs.toFixed(2)} HRS</span>
   </div>`;
   if(detail==='total'||detail==='lineitem'){
     html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
@@ -944,19 +995,10 @@ async function generateReport(){
     html+=`<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--card-border);">
       <div style="font-family:var(--font-cond);font-size:11px;letter-spacing:2px;color:var(--gray);margin-bottom:8px">CLIENT APPROVAL</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div>
-          <div style="border-bottom:1px solid var(--gray-light);height:48px;margin-bottom:4px;"></div>
-          <div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">SIGNATURE</div>
-        </div>
-        <div>
-          <div style="border-bottom:1px solid var(--gray-light);height:48px;margin-bottom:4px;"></div>
-          <div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">DATE</div>
-        </div>
+        <div><div style="border-bottom:1px solid var(--gray-light);height:48px;margin-bottom:4px;"></div><div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">SIGNATURE</div></div>
+        <div><div style="border-bottom:1px solid var(--gray-light);height:48px;margin-bottom:4px;"></div><div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">DATE</div></div>
       </div>
-      <div style="margin-top:12px;">
-        <div style="border-bottom:1px solid var(--gray-light);height:32px;margin-bottom:4px;"></div>
-        <div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">PRINTED NAME</div>
-      </div>
+      <div style="margin-top:12px;"><div style="border-bottom:1px solid var(--gray-light);height:32px;margin-bottom:4px;"></div><div style="font-size:11px;color:var(--gray);font-family:var(--font-cond)">PRINTED NAME</div></div>
       <div style="margin-top:10px;font-size:11px;color:var(--gray);line-height:1.5">By signing above, client acknowledges and approves the labor hours listed in this summary.</div>
     </div>`;
   }
@@ -969,7 +1011,6 @@ function copyReport(){
   const tmp=document.createElement('div');tmp.innerHTML=document.getElementById('rpt_preview').innerHTML;
   navigator.clipboard.writeText(tmp.innerText).then(()=>showToast('Copied to clipboard'));
 }
-
 function printReport(){
   const client=document.getElementById('rpt_client').value||'Client';
   const previewHTML=document.getElementById('rpt_preview').innerHTML;
@@ -986,7 +1027,6 @@ function printReport(){
   </head><body>${previewHTML}<script>window.onload=()=>{window.print()}<\/script></body></html>`);
   win.document.close();
 }
-
 function emailReport(){
   const client=document.getElementById('rpt_client').value||'Client';
   const job=document.getElementById('rpt_job').value||'your project';
@@ -1022,7 +1062,8 @@ if('serviceWorker' in navigator){
 // ════════ INIT ════════
 (async()=>{
   await openDB();
-  document.getElementById('startTime').value=toLocalISO(new Date());
+  // Default workDate to today
+  document.getElementById('workDate').value=toLocalDate(new Date());
   document.getElementById('headerDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
   renderTaskUI();renderPhotoStrip();
   await refreshAutocompleteLists();
